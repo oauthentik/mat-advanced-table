@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "mat-advanced-table": {
+      "root": "projects/mat-advanced-table",
+      "sourceRoot": "projects/mat-advanced-table/src",
+      "projectType": "library",
+      "prefix": "mat",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/mat-advanced-table/tsconfig.lib.json",
+            "project": "projects/mat-advanced-table/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mat-advanced-table/src/test.ts",
+            "tsConfig": "projects/mat-advanced-table/tsconfig.spec.json",
+            "karmaConfig": "projects/mat-advanced-table/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/mat-advanced-table/tsconfig.lib.json",
+              "projects/mat-advanced-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "mat-advanced-table"
+}

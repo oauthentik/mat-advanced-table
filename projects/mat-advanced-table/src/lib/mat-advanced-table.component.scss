@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &:not(.bg-transparent) {
+    background-color: #fff;
+  }
+  &.bg-transparent {
+    background-color: transparent;
+    .mat-table {
+      background-color: transparent;
+    }
+  }
+  .ngx-mat-table-empty-data,
+  .ngx-mat-table-loading-data {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ngx-mat-table-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    * {
+      flex: 1 1 auto;
+    }
+  }
+  .ngx-mat-table-search {
+    font-size: 12px;
+    ::ng-deep.mat-form-field-wrapper {
+      padding: 0 !important;
+    }
+  }
+}

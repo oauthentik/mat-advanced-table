@@ -1,0 +1,199 @@
+<ng-template #none>
+  N/A
+</ng-template>
+<div
+  *ngIf="options?.search || options?.title || legend"
+  class="ngx-mat-table-header"
+>
+  <h4 class="ngx-mat-table-title mat-title" *ngIf="title">{{ title }}</h4>
+  <div class="ngx-mat-table-legned mat-caption" *ngIf="legend">
+    <ng-container *ngTemplateOutlet="legend"></ng-container>
+  </div>
+  <mat-form-field class="ngx-mat-table-search" *ngIf="options?.search">
+    <mat-icon color="accent" matPrefix>search</mat-icon>
+    <input matInput [formControl]="searchControl" />
+    <ng-container *ngIf="filter$ | async"></ng-container>
+
+    <button
+      *ngIf="searchControl.dirty"
+      mat-icon-button
+      matSuffix
+      color="warn"
+      (click)="searchControl.reset()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<ng-container *ngIf="(loading | isDefined) && !loading; else loadingTmp">
+  <table
+    *ngIf="columns && columns.length"
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    [ngClass]="options.classList"
+    (matSortChange)="sortData($event)"
+  >
+    <ng-container *ngIf="options?.selection">
+      <ng-container [matColumnDef]="selectionColumnName">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="mat-{{ selectionColumnName }}-column"
+        >
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+    </ng-container>
+    <ng-container
+      [matColumnDef]="column.key"
+      *ngFor="let column of columns | where: notInHidden; let i = index"
+    >
+      <ng-container *ngIf="column.canSort; else noSort">
+        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key">
+          {{ column.verboseName }}
+        </th>
+      </ng-container>
+      <ng-template #noSort>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ column.verboseName }}
+        </th>
+      </ng-template>
+      <td
+        mat-cell
+        [style.maxWidth.px]="options?.maxCellWidth"
+        [style.minWidth.px]="options?.minCellWidth"
+        *matCellDef="let element"
+      >
+        <!-- Begin cell output -->
+        <ng-container
+          *ngIf="
+            templates | firstOrDefault: ['name', column.key] as cellTemplate;
+            else noTemplate
+          "
+        >
+          <!-- With template outlet -->
+          <ng-container
+            *ngTemplateOutlet="
+              cellTemplate.template;
+              context: { $implicit: element }
+            "
+          ></ng-container>
+        </ng-container>
+        <ng-template #noTemplate>
+          <ng-template #WithPropAccessor>
+            <!-- With proprety accessor -->
+            <ng-container
+              *ngIf="
+                column.propertyAccessor(element[column.key], element) as value;
+                else none
+              "
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  propTypeOutput;
+                  context: {
+                    value: value,
+                    column: column
+                  }
+                "
+              ></ng-container>
+            </ng-container>
+          </ng-template>
+
+          <ng-container *ngIf="!column.propertyAccessor; else WithPropAccessor">
+            <ng-container
+              *ngTemplateOutlet="
+                propTypeOutput;
+                context: {
+                  value: element[column.key],
+                  column: column
+                }
+              "
+            ></ng-container>
+          </ng-container>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      [ngClass]="rowNgClassFun ? rowNgClassFun(row) : { 'mat-row': true }"
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+  </table>
+
+  <ng-template #propTypeOutput let-column="column" let-value="value">
+    <ng-container [ngSwitch]="column.propertyType">
+      <span *ngSwitchCase="'String'" [title]="value">
+        {{ value || options.placeholder }}
+      </span>
+      <span *ngSwitchCase="'Number'">
+        <ng-container *ngIf="column.format">
+          {{ (value | number: column.format) || options.placeholder }}
+        </ng-container>
+        <ng-container *ngIf="!column.format">
+          {{ value || options.placeholder }}
+        </ng-container>
+      </span>
+      <span *ngSwitchCase="'Date'">
+        {{ (value | date: column.format) || options.placeholder }}
+      </span>
+      <span *ngSwitchDefault>
+        <ng-container *ngIf="column.propertyAccessor">
+          <span [innerHTML]="value"></span>
+        </ng-container>
+        <ng-container *ngIf="!column.propertyAccessor">
+          {{ value || options.placeholder }}
+        </ng-container>
+        <!-- Default type -->
+      </span>
+    </ng-container>
+  </ng-template>
+  <ng-container *ngIf="!dataSource.data.length">
+    <div class="ngx-mat-table-empty">
+      <ng-container *ngIf="noDataTemplate; else emptyDataTmp">
+        <ng-container *ngTemplateOutlet="noDataTemplate"></ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #emptyDataTmp>
+  <small>
+    <mat-icon color="warn" inline="true">warning</mat-icon>
+    {{ options.emptyDataText }}
+  </small>
+</ng-template>
+
+<ng-template #loadingTmp>
+  <ng-container *ngIf="loadingTemplate">
+    <ng-container *ngTemplateOutlet="loadingTemplate"></ng-container>
+  </ng-container>
+  <mat-card class="ngx-mat-table-loading-data" *ngIf="!loadingTemplate">
+    <mat-spinner [mode]="'indeterminate'"> </mat-spinner>
+    <mat-card-footer>
+      {{ options.loadingText }}
+    </mat-card-footer>
+  </mat-card>
+</ng-template>
+
+<mat-paginator
+  *ngIf="options.paging"
+  [pageSize]="'15'"
+  [pageSizeOptions]="[10, 15, 20, 50, 100]"
+  showFirstLastButtons
+></mat-paginator>
