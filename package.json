@@ -93,9 +93,6 @@
     "typescript": "~3.1.6",
     "semantic-release": "^17.0.4"
   },
-  "release": {
-    "pkgRoot": "dist/mat-advanced-table"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
