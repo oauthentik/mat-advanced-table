@@ -2,7 +2,6 @@ language: node_js
 
 node_js:
   - 10
-sudo: required
 dist: trusty
 branches:
   only:
@@ -23,11 +22,9 @@ install:
 
 stage: build
   script:
-    npm run lint
-  script:
-    npm run test
-  script:
-    npm run build
+  - npm run lint
+  - npm run test
+  - npm run build
 stage: release
   deploy:
     provider: script
