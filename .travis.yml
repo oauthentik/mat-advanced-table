@@ -20,5 +20,5 @@ script:
   - npm run ci
 deploy:
   provider: script
-  cleanup: true
+  cleanup: false
   script: npx semantic-release
