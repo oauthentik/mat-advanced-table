@@ -1,6 +1,28 @@
 {
   "name": "mat-advanced-table",
-  "version": "0.0.1",
+  "author": {
+    "email": "othmaneabanouzi@gmail.com",
+    "name": "Othmane ElAlaoui Banouzi"
+  },
+  "bugs": {
+    "email": "oauthentik.services@gmail.com",
+    "url": "https://github.com/oauthentik/mat-advanced-table/issues"
+  },
+  "description": "Angular material enhanced table with less boilerplate",
+  "displayName": "Material Advanced Table",
+  "homepage": "https://github.com/oauthentik/mat-advanced-table",
+  "keywords": [
+    "angular",
+    "material",
+    "table"
+  ],
+  "readme": "https://github.com/oauthentik/mat-advanced-table/blob/master/README.md",
+  "version": "0.0.0-development",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",

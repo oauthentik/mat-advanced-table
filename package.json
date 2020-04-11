@@ -22,7 +22,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod mat-advanced-table",
+    "build": "ng build mat-advanced-table",
     "test:ci": "ng test --watch=false --progress=false --browsers=ChromeHeadlessCI ",
     "test": "ng test --watch ",
     "lint": "ng lint",
@@ -44,7 +44,7 @@
     "trailingComma": "es5",
     "useTabs": false
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~7.0.0",
     "@angular/common": "~7.0.0",
