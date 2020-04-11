@@ -7,8 +7,23 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "format": "npx prettier --write .",
     "e2e": "ng e2e",
+    "ci": "npm run lint && npm run test && npm run build",
     "semantic-release": "semantic-release"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "disableLanguages": [],
+    "endOfLine": "lf",
+    "ignorePath": ".prettierignore",
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
   },
   "private": true,
   "dependencies": {
