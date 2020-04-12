@@ -18,7 +18,7 @@ install:
   - npm ci
 script:
   - npm run ci
-  - cp package.json README.md LICENSE.md dist/mat-advanced-table
+  - cp package.json README.md LICENSE dist/mat-advanced-table
 deploy:
   provider: script
   skip_cleanup: true
