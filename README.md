@@ -20,15 +20,16 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
 
 ## Usage
 
-import the `MatAdvancedTableModule` with the `forRoot()` to the singleton module of your app
-and without `forRoot()` into your component declared module
+### Quick usage
+
+import the `MatAdvancedTableModule` to the modules you are using it in
 
 ```typescript
 import { MatAdvancedTableModule } from "mat-table-advanced";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [CommonModule, MatAdvancedTableModule.forRoot()],
+  imports: [CommonModule, MatAdvancedTableModule],
 })
 export class AppModule {}
 ```
@@ -36,13 +37,16 @@ export class AppModule {}
 Use `@Table` and `@Column` decorators to define table columns
 
 ```typescript
+export enum UserRoles {
+  Moderator,
+  Guest,
+}
 @Table
 export class UserModel {
   @Column({
     verboseName: "User ID",
     canSort: true,
     sortBy: "desc",
-    format: null,
   })
   id: number;
   @Column({ verboseName: "User name", canSort: true })
@@ -55,10 +59,11 @@ export class UserModel {
 then load the columns in your host component ts file
 
 ```typescript
+import {MatAdvancedTableService} from 'mat-advanced-table';
  constructor(
-    private advancedTableService: MatTableAdvancedService
+    private tableService: MatAdvancedTableService
   ) {}
-  users$: Observable<User[]>;
+  users$: Observable<UserModel[]>;
   userModelColumns: ColumnModel[];
   ngOnInit() {
     this.users$ = of([
@@ -68,7 +73,7 @@ then load the columns in your host component ts file
         isAdmin: true,
         role: UserRoles.Moderator,
     ])
-    this.userModelColumns = this.advancedTableService.getColumnsOfType(
+    this.userModelColumns = this.tableService.getColumnsOfType(
       UserModel
     );
   }
@@ -81,6 +86,84 @@ after that you're ready to use it in the component template as
   [columns]="userModelColumns"
   [data]="users$ | async"
 ></ngx-mat-table-advanced>
+```
+
+### Advanced usage
+
+### 1. Using actions cell with a template cell directive:
+
+**CAUTION**: Use `actions` as the template name to allow the table to bind correctly to the actions column, if another column in your defined table contains the same key, pray to change it in the `ColumnModel.key` option.
+
+```typescript
+@Component({
+  selector: "app-component",
+  template: `<mat-advanced-table
+    [data]="data"
+    [columns]="columns"
+    [options]="{ actions: true }"
+  >
+    <ng-template matATCellTemplate name="actions">
+      <button mat-button (click)="deleteUser($event)">delete</button>
+    </ng-template>
+  </mat-advanced-table>`,
+  styles: [``],
+})
+export class AppComponent implements OnInit {
+  constructor(private matAdvancedService: MatAdvancedTableService) {}
+  columns;
+  data;
+  ngOnInit(): void {
+    this.columns = this.matAdvancedService.getColumnsOfType(MockClass);
+    this.data = [
+      {
+        // some mock data
+      },
+    ];
+  }
+  deleteUser(user) {
+    console.log("User Deleted", user);
+  }
+}
+```
+
+### 2. Using custom data loader
+
+```typescript
+@Component({
+  selector: "app-component",
+  template: `<mat-advanced-table
+    [data]="data"
+    [columns]="columns"
+    [loadingTemplate]="loadingTmp"
+    [loading]="isLoading"
+  >
+    <ng-template #loadingTmp>
+      <your-custom-loader [text]="'Please wait...'"></your-custom-loader>
+    </ng-template>
+  </mat-advanced-table>`,
+  styles: [``],
+})
+export class AppComponent implements OnInit {
+  constructor(private matAdvancedService: MatAdvancedTableService) {}
+  columns;
+  data;
+  isLoading = false;
+  ngOnInit(): void {
+    this.columns = this.matAdvancedService.getColumnsOfType(MockClass);
+    this.loadData();
+  }
+  loadData(user) {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.data = [
+        {
+          // some mock data
+        },
+      ];
+      this.isLoading = false;
+    }, 5000);
+  }
+}
 ```
 
 ## License
