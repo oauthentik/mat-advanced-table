@@ -5,7 +5,9 @@
   *ngIf="options?.search || options?.title || legend"
   class="ngx-mat-table-header"
 >
-  <h4 class="ngx-mat-table-title mat-title" *ngIf="title">{{ title }}</h4>
+  <h4 class="ngx-mat-table-title mat-title" *ngIf="options.title">
+    {{ options.title }}
+  </h4>
   <div class="ngx-mat-table-legned mat-caption" *ngIf="legend">
     <ng-container *ngTemplateOutlet="legend"></ng-container>
   </div>
