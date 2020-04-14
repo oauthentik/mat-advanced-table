@@ -138,10 +138,10 @@ import {MatAdvancedTableService} from 'mat-advanced-table';
 after that you're ready to use it in the component template as
 
 ```html
-<ngx-mat-table-advanced
+<mat-table-advanced
   [columns]="userModelColumns"
   [data]="users$ | async"
-></ngx-mat-table-advanced>
+></mat-table-advanced>
 ```
 
 ### Advanced usage
