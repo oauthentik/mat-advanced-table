@@ -70,6 +70,10 @@ rolename :string \\ <= this prop doesn't exists on the object, it's here as a pl
 | emptyDataText | The no data message to be displayed under the table columns | string | No Data available |
 | loadingText | The loading text to be displayed when data is loading | string | Please wait |
 
+### MatCellTemplateDirective (Selector : _matATCellTemplate_)
+
+**`@Input() name:string` (Required)** : The column cell template name and it must be present in the @Table definition
+
 ## Usage
 
 ### Quick usage
