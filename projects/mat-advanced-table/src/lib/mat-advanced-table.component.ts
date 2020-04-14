@@ -35,9 +35,30 @@ import { Observable } from "rxjs";
 export class MatAdvancedTableComponent
   implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
   @Input() title: string;
+
+  /**
+   * @description The defined columns for the table defined as Column decorator
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() columns: ColumnModel[] = [];
+
+  /**
+   * @description an array of keys the columns to hide
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() hiddenColumns: string[] = [];
+
+  /**
+   * @description the data to be displayed conforming to the Columns model
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() data: any[];
+
+  /**
+   * @description the table options as defined in NgxMatTableOptions
+   * see  NgxMatTableOptionsDefaults for default values
+   * @memberof MatAdvancedTableComponent
+   */
   @Input()
   public set options(v: NgxMatTableOptions) {
     this._options = v
@@ -52,14 +73,52 @@ export class MatAdvancedTableComponent
     return this._options || NgxMatTableOptionsDefaults;
   }
 
+  /**
+   * @description whether data is loading
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() loading = false;
+
+  /**
+   * @description The legend template
+   * @type {TemplateRef<any>}
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() legend: TemplateRef<any>;
+
+  /**
+   * @description Wether to use the white background or not
+   *  if false the table will have no backround color of #fff
+   * @type {boolean}
+   * @memberof MatAdvancedTableComponent
+   */
   @HostBinding("class.transparent-bg")
   @Input()
   transparentBg: boolean;
+
+  /**
+   * @description A helper function to returns a row dependant class string
+   * @type (item:any) =>  string
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() rowNgClassFun: (item: any) => { string };
+
+  /**
+   * @description The empty data Template
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() @ContentChild("noDataTemplate") noDataTemplate;
+
+  /**
+   * @description The laoding text indicator
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() @ContentChild("loadingTemplate") loadingTemplate;
+
+  /**
+   * @description The initial selection model
+   * @memberof MatAdvancedTableComponent
+   */
   @Input() selection = new SelectionModel(true, []);
   @ContentChildren(MatCellTemplateDirective)
   private _templates: QueryList<MatCellTemplateDirective>;

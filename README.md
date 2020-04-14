@@ -18,6 +18,58 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
    npm i mat-advanced-table
    ```
 
+## API
+
+### @Column
+
+**`verboseName: string`** The column label to be displayed
+**`key: string;`** the column key: By default it's the same as the attribute name
+**`order: number`** The displayed order of the column
+**`propertyType: "String" | "Date" | "Number" | "Object"`** The popriety primitive type collected from the ProprietyDescriptor and can be overriden by setting a value
+**`canSort: boolean`** Whether this column is sortable
+**`sortBy: "asc" | "desc"`** The default sorting order
+**`visible: boolean`** Whether the column is visible by default
+**`format: string | false`** Date|number format as in Angular format pipe  
+ **`sortByAccessor: (instance) => any`** Callback used for sorting the complex object
+**`propertyAccessor: (obj: any, thisRef?) => any`** Callback used for accessing complex object primitives
+eg: `typescript @Column({ propertyAccessor:(obj:UserModel,thisRef):string => obj.role.name })
+
+rolename :string \\ <= this prop doesn't exists on the object, it's here as a placeholder forthe column decoratrr`
+
+### MatAdvancedTableComponent
+
+**`@Input() columns: ColumnModel[]` (Required)** : The table column array definition. it comes from the `@Column` decorator
+
+**`@Input() data: any[]` (Optional)** : The data to be displayed
+
+**`@Input() loading: boolean` (Optional)** : Whether data is loading
+
+**`@Input() legend: TemplateRef<any>` (Optional)** : The legend template
+
+**`@Input() @ContentChild("noDataTemplate") noDataTemplate: TemplateRef<any>` (Optional)** : The empty data template
+
+**`@Input() @ContentChild("loadingTemplate") loadingTemplate: TemplateRef<any>` (Optional)** : The loading data template
+
+**`@Input() selection: SelectionModel` (Optional)** : The table initial selection
+
+**`@Input() rowNgClassFun: (item: any) => string` (Optional)** : A helper function to returns a row dependant class string
+
+**`@Input() options:NgxMatTableOptions` (Optional)** : The table options with it's defaults values : `NgxMatTableOptionsDefaults`
+| Option | Definition | Type | Default |
+|---------------|--------------------------------------------------------------------------------------------|----------|-------------------|
+| minCellWidth | The table cell's min-width style attribute in px | number | 80 |
+| maxCellWidth | The table cell's max-width style attribute in px | number | 200 |
+| classList | a list of classes to add to the table (eg: ['table-responsive','compact']... | string[] | [] |
+| title | The table header title | string | null |
+| actions | Whether to show the actions column (Template is issued with the MatCellTemplate Directive) | boolean | false |
+| actionsLabel | The actions column header label | string | Actions |
+| paging | Whether to show the MatPaginator | boolean | true |
+| search | Whether to show the Search bar and activate the advanced filter | boolean | true |
+| selection | whether to show the selection column | boolean | false |
+| placeholder | Empty value placeholder | string | N/A |
+| emptyDataText | The no data message to be displayed under the table columns | string | No Data available |
+| loadingText | The loading text to be displayed when data is loading | string | Please wait |
+
 ## Usage
 
 ### Quick usage
