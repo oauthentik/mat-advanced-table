@@ -61,7 +61,7 @@ export class MatAdvancedTableComponent
   @Input() @ContentChild("noDataTemplate") noDataTemplate;
   @Input() @ContentChild("loadingTemplate") loadingTemplate;
   @Input() selection = new SelectionModel(true, []);
-  @ContentChildren(MatCellTemplateDirective, { read: TemplateRef })
+  @ContentChildren(MatCellTemplateDirective)
   private _templates: QueryList<MatCellTemplateDirective>;
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -99,6 +99,7 @@ export class MatAdvancedTableComponent
       template: tmp.template,
       name: tmp.name,
     }));
+    this.buildColumns();
   }
   ngOnChanges(changes) {
     if (changes["data"]) {
@@ -111,9 +112,7 @@ export class MatAdvancedTableComponent
         this._originalData = cloneDeep(source);
       }
     }
-    if (changes["columns"]) {
-      this.buildColumns();
-    }
+    this.buildColumns();
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -194,9 +193,7 @@ export class MatAdvancedTableComponent
     }
     this.sortColumns();
     if (this.options.actions) {
-      if (
-        !this.columns.find((col) => col.key.includes(this.actionsColumn.key))
-      ) {
+      if (!this.columns.find((col) => col.key === this.actionsColumn.key)) {
         this.columns = [
           ...this.columns,
           {
