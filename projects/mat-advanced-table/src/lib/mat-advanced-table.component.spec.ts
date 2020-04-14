@@ -1,30 +1,38 @@
-import { SimpleChange } from "@angular/core";
+import { SimpleChange, Component } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { MatPaginator, MatSortHeader } from "@angular/material";
+import {
+  MatPaginator,
+  MatSortHeader,
+  MatButtonModule,
+} from "@angular/material";
 import { By } from "@angular/platform-browser";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatAdvancedTableComponent } from "./mat-advanced-table.component";
 import { MatAdvancedTableModule } from "./mat-advanced-table.module";
 import { MatAdvancedTableService } from "./mat-advanced-table.service";
 import { MockClass, mockData } from "./mocks";
+import {
+  HostActionsComponent,
+  HostLoadingComponent,
+} from "./mocks/host-component";
 
 describe("MatAdvancedTableComponent", () => {
-  let component: MatAdvancedTableComponent;
-  let fixture: ComponentFixture<MatAdvancedTableComponent>;
-  let service: MatAdvancedTableService;
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, MatAdvancedTableModule],
-    }).compileComponents();
-    service = TestBed.get(MatAdvancedTableService);
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MatAdvancedTableComponent);
-    component = fixture.componentInstance;
-    component.cdr.detectChanges();
-  });
   describe("Basic Implementation", () => {
+    let component: MatAdvancedTableComponent;
+    let fixture: ComponentFixture<MatAdvancedTableComponent>;
+    let service: MatAdvancedTableService;
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [NoopAnimationsModule, MatAdvancedTableModule],
+      }).compileComponents();
+      service = TestBed.get(MatAdvancedTableService);
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(MatAdvancedTableComponent);
+      component = fixture.componentInstance;
+      component.cdr.detectChanges();
+    });
     const setupColumns = () => {
       component.columns = service.getColumnsOfType(MockClass);
       component.ngOnChanges({
@@ -131,52 +139,127 @@ describe("MatAdvancedTableComponent", () => {
           fixture.nativeElement.querySelector(".ngx-mat-table-loading-data")
         ).toBeFalsy();
       });
-    });
-    //
-    it("should contains a table with it's headers", () => {
-      setupColumns();
-      const table: HTMLTableElement = fixture.nativeElement.querySelector(
-        "table"
-      );
-      expect(table).toBeTruthy();
-      const headers: HTMLTableHeaderCellElement[] = Array.from(
-        table.querySelectorAll("th")
-      );
-      expect(headers).toBeTruthy();
-      component.columns.forEach((col, i) => {
-        expect(headers[i]).toBeTruthy();
-        expect(headers[i].textContent).toContain(col.verboseName);
-      });
-    });
-    it("should contains a single line of data", () => {
-      setupColumns();
-      setupData();
-      const tableBody: HTMLTableElement = fixture.nativeElement.querySelector(
-        "table tbody"
-      );
-      expect(tableBody).toBeTruthy();
-      const rows: HTMLTableRowElement[] = Array.from(
-        tableBody.querySelectorAll("tr")
-      );
-      expect(rows.length).toEqual(mockData.length);
-      mockData.forEach((row, i) => {
-        const cells = Array.from(rows[i].querySelectorAll("td"));
-        component.columns.forEach((col, j) => {
-          expect(cells[j]).toBeTruthy();
-          expect(cells[j].textContent.trim()).toContain(mockData[i][col.key]);
+      it("should contains a table with it's headers", () => {
+        const table: HTMLTableElement = fixture.nativeElement.querySelector(
+          "table"
+        );
+        expect(table).toBeTruthy();
+        const headers: HTMLTableHeaderCellElement[] = Array.from(
+          table.querySelectorAll("th")
+        );
+        expect(headers).toBeTruthy();
+        component.columns.forEach((col, i) => {
+          expect(headers[i]).toBeTruthy();
+          expect(headers[i].textContent).toContain(col.verboseName);
         });
       });
+      it("should contains a single line of data", () => {
+        setupData();
+        const tableBody: HTMLTableElement = fixture.nativeElement.querySelector(
+          "table tbody"
+        );
+        expect(tableBody).toBeTruthy();
+        const rows: HTMLTableRowElement[] = Array.from(
+          tableBody.querySelectorAll("tr")
+        );
+        expect(rows.length).toEqual(mockData.length);
+        mockData.forEach((row, i) => {
+          const cells = Array.from(rows[i].querySelectorAll("td"));
+          component.columns.forEach((col, j) => {
+            expect(cells[j]).toBeTruthy();
+            expect(cells[j].textContent.trim()).toContain(mockData[i][col.key]);
+          });
+        });
+      });
+      it("should filter data using search input", () => {
+        setupData();
+        component.searchControl.setValue(21);
+        component.cdr.detectChanges();
+        const rows: HTMLTableRowElement[] = Array.from(
+          fixture.nativeElement.querySelectorAll("table tbody tr")
+        );
+        expect(rows.length).toEqual(1);
+      });
     });
-    it("should filter data using search input", () => {
-      setupColumns();
-      setupData();
-      component.searchControl.setValue(21);
-      component.cdr.detectChanges();
-      const rows: HTMLTableRowElement[] = Array.from(
-        fixture.nativeElement.querySelectorAll("table tbody tr")
-      );
-      expect(rows.length).toEqual(1);
+    // End of defaults options
+  });
+  // When custom options made
+  describe("custom templates: CellTemplate, LoadingTemplate, EmptyDataTemplate ", () => {
+    describe("CellTemplate", () => {
+      let component: HostActionsComponent;
+      let fixture: ComponentFixture<HostActionsComponent>;
+
+      beforeEach(async(() => {
+        TestBed.configureTestingModule({
+          declarations: [HostActionsComponent],
+          imports: [
+            NoopAnimationsModule,
+            MatButtonModule,
+            MatAdvancedTableModule,
+          ],
+        }).compileComponents();
+      }));
+
+      beforeEach(() => {
+        fixture = TestBed.createComponent(HostActionsComponent);
+        component = fixture.componentInstance;
+      });
+      it("should render actions template when issued", () => {
+        expect(component).toBeTruthy();
+        const matAdvancedTable = fixture.debugElement.query(
+          By.directive(MatAdvancedTableComponent)
+        );
+        expect(matAdvancedTable).toBeTruthy();
+        fixture.detectChanges();
+        expect(
+          (matAdvancedTable.componentInstance as MatAdvancedTableComponent)
+            .options.actions
+        ).toBeTruthy();
+        fixture.detectChanges();
+        expect(
+          Array.from(
+            matAdvancedTable.nativeElement.querySelectorAll(
+              "td"
+            ) as HTMLElement[]
+          )
+            .map((td) => td.textContent)
+            .filter((text) => text.trim().includes("action")).length
+        ).toEqual(mockData.length);
+      });
     });
-    // End of Test cases
+    describe("Loading Template", () => {
+      let component: HostLoadingComponent;
+      let fixture: ComponentFixture<HostLoadingComponent>;
+
+      beforeEach(async(() => {
+        TestBed.configureTestingModule({
+          declarations: [HostLoadingComponent],
+          imports: [NoopAnimationsModule, MatAdvancedTableModule],
+        }).compileComponents();
+      }));
+
+      beforeEach(() => {
+        fixture = TestBed.createComponent(HostLoadingComponent);
+        component = fixture.componentInstance;
+      });
+      it("should render  loading data template", () => {
+        expect(component).toBeTruthy();
+        component.toggleLoading(true);
+        expect(fixture.nativeElement.querySelector("table")).toBeFalsy();
+        fixture.detectChanges();
+        expect(
+          fixture.nativeElement.querySelector(".custom-loading-template")
+        ).toBeTruthy();
+        expect(
+          fixture.nativeElement.querySelector(".custom-loading-template")
+            .textContent
+        ).toContain(component.loadingText);
+        component.toggleLoading(false);
+        fixture.detectChanges();
+        expect(
+          fixture.nativeElement.querySelector(".custom-loading-template")
+        ).toBeFalsy();
+      });
+    });
   });
 });
