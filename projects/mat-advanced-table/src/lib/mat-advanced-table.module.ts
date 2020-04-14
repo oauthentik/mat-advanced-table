@@ -48,20 +48,7 @@ import { MatAdvancedTableComponent } from "./mat-advanced-table.component";
     MatSliderModule,
     MatAutocompleteModule,
   ],
-  providers: [],
+  providers: [MatAdvancedTableService],
   exports: [MatAdvancedTableComponent, MatCellTemplateDirective],
 })
-export class MatAdvancedTableModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: MatAdvancedTableModule,
-      providers: [MatAdvancedTableService],
-    };
-  }
-  public static forChild(): ModuleWithProviders {
-    return {
-      ngModule: MatAdvancedTableModule,
-      providers: [],
-    };
-  }
-}
+export class MatAdvancedTableModule {}
