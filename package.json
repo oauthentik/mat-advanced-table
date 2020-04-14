@@ -34,9 +34,7 @@
   "prettier": {
     "arrowParens": "always",
     "bracketSpacing": true,
-    "disableLanguages": [],
     "endOfLine": "lf",
-    "ignorePath": ".prettierignore",
     "printWidth": 80,
     "semi": true,
     "singleQuote": false,
