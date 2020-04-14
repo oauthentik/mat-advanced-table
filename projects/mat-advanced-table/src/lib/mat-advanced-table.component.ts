@@ -34,12 +34,6 @@ import { Observable } from "rxjs";
 })
 export class MatAdvancedTableComponent
   implements OnInit, AfterContentInit, AfterViewInit, OnChanges {
-  @Input() title: string;
-
-  /**
-   * @description The defined columns for the table defined as Column decorator
-   * @memberof MatAdvancedTableComponent
-   */
   @Input() columns: ColumnModel[] = [];
 
   /**
