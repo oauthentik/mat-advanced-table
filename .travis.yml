@@ -11,7 +11,6 @@ addons:
 cache:
   directories:
     - $HOME/.npm
-    - ./node_modules
 before_install:
   - npm i -g @angular/cli@7.0.5
   - npm install codecov -g
