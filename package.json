@@ -23,7 +23,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build mat-advanced-table",
-    "test:ci": "ng test --watch=false --progress=false --browsers=ChromeHeadlessCI ",
+    "test:ci": "ng test --watch=false --progress=false --browsers=ChromeHeadlessCI --code-coverage",
     "test": "ng test --watch ",
     "lint": "ng lint",
     "format": "npx prettier --write .",
