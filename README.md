@@ -23,18 +23,25 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
 ### @Column
 
 **`verboseName: string`** The column label to be displayed
-**`key: string;`** the column key: By default it's the same as the attribute name
-**`order: number`** The displayed order of the column
-**`propertyType: "String" | "Date" | "Number" | "Object"`** The popriety primitive type collected from the ProprietyDescriptor and can be overriden by setting a value
-**`canSort: boolean`** Whether this column is sortable
-**`sortBy: "asc" | "desc"`** The default sorting order
-**`visible: boolean`** Whether the column is visible by default
-**`format: string | false`** Date|number format as in Angular format pipe  
- **`sortByAccessor: (instance) => any`** Callback used for sorting the complex object
-**`propertyAccessor: (obj: any, thisRef?) => any`** Callback used for accessing complex object primitives
-eg: `typescript @Column({ propertyAccessor:(obj:UserModel,thisRef):string => obj.role.name })
 
-rolename :string \\ <= this prop doesn't exists on the object, it's here as a placeholder forthe column decoratrr`
+**`key: string;`** the column key: By default it's the same as the attribute name
+
+**`order: number`** The displayed order of the column
+
+**`propertyType: "String" | "Date" | "Number" | "Object"`** The popriety primitive type collected from the ProprietyDescriptor and can be overriden by setting a value
+
+**`canSort: boolean`** Whether this column is sortable
+
+**`sortBy: "asc" | "desc"`** The default sorting order
+
+**`visible: boolean`** Whether the column is visible by default
+
+**`format: string | false`** Date|number format as in Angular format pipe
+
+**`sortByAccessor: (instance) => any`** Callback used for sorting the complex object
+
+**`propertyAccessor: (obj: any, thisRef?) => any`** Callback used for accessing complex object primitives
+eg: `typescript @Column({ propertyAccessor:(obj:UserModel,thisRef):string => obj.role.name }) rolename :string \\ <= this prop doesn't exists on the object, it's here as a placeholder forthe column decoratrr`
 
 ### MatAdvancedTableComponent
 
