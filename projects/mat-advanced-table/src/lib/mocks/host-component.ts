@@ -24,7 +24,7 @@ class HostBaseComponent implements OnInit {
     [columns]="columns"
     [options]="{ actions: true }"
   >
-    <ng-template #actionsTmp matATCellTemplate name="actions">
+      <ng-template matATCellTemplate="actions">
       <button mat-button>action</button>
     </ng-template>
   </mat-advanced-table>`,
