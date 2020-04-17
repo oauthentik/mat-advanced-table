@@ -41,7 +41,12 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
 **`sortByAccessor: (instance) => any`** Callback used for sorting the complex object
 
 **`propertyAccessor: (obj: any, thisRef?) => any`** Callback used for accessing complex object primitives
-eg: `typescript @Column({ propertyAccessor:(obj:UserModel,thisRef):string => obj.role.name }) rolename :string \\ <= this prop doesn't exists on the object, it's here as a placeholder forthe column decoratrr`
+
+eg:
+
+```typescript
+ @Column({ propertyAccessor:(obj:UserModel, thisRef):string => obj.role.name }) rolename :string
+```
 
 ### MatAdvancedTableComponent
 
@@ -63,7 +68,7 @@ eg: `typescript @Column({ propertyAccessor:(obj:UserModel,thisRef):string => obj
 
 **`@Input() options:NgxMatTableOptions` (Optional)** : The table options with it's defaults values : `NgxMatTableOptionsDefaults`
 | Option | Definition | Type | Default |
-|---------------|--------------------------------------------------------------------------------------------|----------|-------------------|
+| ------------- | ------------------------------------------------------------------------------------------ | -------- | ----------------- |
 | minCellWidth | The table cell's min-width style attribute in px | number | 80 |
 | maxCellWidth | The table cell's max-width style attribute in px | number | 200 |
 | classList | a list of classes to add to the table (eg: ['table-responsive','compact']... | string[] | [] |
