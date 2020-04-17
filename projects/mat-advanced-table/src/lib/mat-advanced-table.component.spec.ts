@@ -10,10 +10,11 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatAdvancedTableComponent } from "./mat-advanced-table.component";
 import { MatAdvancedTableModule } from "./mat-advanced-table.module";
 import { MatAdvancedTableService } from "./mat-advanced-table.service";
-import { MockClass, mockData } from "./mocks";
+import { MockClass, mockData, MockAdvancedClass } from "./mocks";
 import {
   HostActionsComponent,
   HostLoadingComponent,
+  HostEmptyComponent,
 } from "./mocks/host-component";
 
 describe("MatAdvancedTableComponent", () => {
@@ -33,8 +34,8 @@ describe("MatAdvancedTableComponent", () => {
       component = fixture.componentInstance;
       component.cdr.detectChanges();
     });
-    const setupColumns = () => {
-      component.columns = service.getColumnsOfType(MockClass);
+    const setupColumns = (typeClass) => {
+      component.columns = service.getColumnsOfType(typeClass);
       component.ngOnChanges({
         columns: new SimpleChange(null, component.columns, true),
       });
@@ -57,9 +58,9 @@ describe("MatAdvancedTableComponent", () => {
     };
 
     // Test cases
-    describe("should create the component with defaults", () => {
+    describe("creating the component with defaults", () => {
       beforeEach(() => {
-        setupColumns();
+        setupColumns(MockClass);
       });
       it("Should create the component", () => {
         expect(component).toBeTruthy();
@@ -181,6 +182,14 @@ describe("MatAdvancedTableComponent", () => {
         expect(rows.length).toEqual(1);
       });
     });
+    describe("creating the component with custom options", () => {
+      beforeEach(() => {
+        setupColumns(MockAdvancedClass);
+      });
+      it("Should create the component with selction", () => {
+        expect(component).toBeTruthy();
+      });
+    });
     // End of defaults options
   });
   // When custom options made
@@ -259,6 +268,33 @@ describe("MatAdvancedTableComponent", () => {
         expect(
           fixture.nativeElement.querySelector(".custom-loading-template")
         ).toBeFalsy();
+      });
+    });
+    describe("Empty Data Template", () => {
+      let component: HostEmptyComponent;
+      let fixture: ComponentFixture<HostEmptyComponent>;
+
+      beforeEach(async(() => {
+        TestBed.configureTestingModule({
+          declarations: [HostEmptyComponent],
+          imports: [NoopAnimationsModule, MatAdvancedTableModule],
+        }).compileComponents();
+      }));
+
+      beforeEach(() => {
+        fixture = TestBed.createComponent(HostEmptyComponent);
+        component = fixture.componentInstance;
+      });
+      it("should render  empty data template", () => {
+        expect(component).toBeTruthy();
+        fixture.detectChanges();
+        expect(fixture.nativeElement.querySelector("table")).toBeTruthy();
+        expect(
+          fixture.nativeElement.querySelector(".empty-template")
+        ).toBeTruthy();
+        expect(
+          fixture.nativeElement.querySelector(".empty-template").textContent
+        ).toContain(component.emptyDataPlaceholder);
       });
     });
   });

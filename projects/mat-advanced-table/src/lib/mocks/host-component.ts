@@ -68,3 +68,29 @@ export class HostLoadingComponent extends HostBaseComponent {
     super.ngOnInit();
   }
 }
+
+@Component({
+  selector: "mat-host-component",
+  template: `<mat-advanced-table
+    [data]="data"
+    [columns]="columns"
+    [noDataTemplate]="emptyTmp"
+  >
+    <ng-template #emptyTmp>
+      <strong class="empty-template">
+       {{emptyDataPlaceholder}}
+      </strong>
+    </ng-template>
+  </mat-advanced-table>`,
+  styles: [``],
+})
+export class HostEmptyComponent implements OnInit {
+  emptyDataPlaceholder = "No data is available";
+  constructor(protected matAdvancedService: MatAdvancedTableService) {}
+  columns;
+  data;
+  ngOnInit(): void {
+    this.columns = this.matAdvancedService.getColumnsOfType(MockClass);
+    this.data = [];
+  }
+}
