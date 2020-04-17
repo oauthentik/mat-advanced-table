@@ -51,7 +51,7 @@ export class MatAdvancedTableComponent
    * see  NgxMatTableOptionsDefaults for default values
    */
   @Input()
-  public set options(v: NgxMatTableOptions) {
+  public set options(v: Partial<NgxMatTableOptions>) {
     this._options = v
       ? {
           ...NgxMatTableOptionsDefaults,
@@ -60,7 +60,7 @@ export class MatAdvancedTableComponent
       : NgxMatTableOptionsDefaults;
   }
 
-  public get options(): NgxMatTableOptions {
+  public get options(): Partial<NgxMatTableOptions> {
     return this._options || NgxMatTableOptionsDefaults;
   }
 
