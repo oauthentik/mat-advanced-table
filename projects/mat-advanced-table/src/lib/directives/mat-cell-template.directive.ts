@@ -8,5 +8,5 @@ export class MatCellTemplateDirective {
     this.template = this._tmp;
   }
   @Input() template: TemplateRef<any>;
-  @Input() name: string;
+  @Input("matATCellTemplate") name: string;
 }
