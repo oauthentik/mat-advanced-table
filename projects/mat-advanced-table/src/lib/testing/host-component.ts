@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatAdvancedTableService } from "../mat-advanced-table.service";
-import { MockClass, mockData } from "../testing/mocks";
+import { MockClass, mockData } from "./mocks";
 
 @Component({
   selector: "mat-host-component",

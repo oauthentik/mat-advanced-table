@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 
 import { MatAdvancedTableService } from "./mat-advanced-table.service";
-import { MockClass } from "./mocks";
+import { MockClass } from "./testing/mocks";
 describe("MatAdvancedTableService", () => {
   beforeEach(() =>
     TestBed.configureTestingModule({

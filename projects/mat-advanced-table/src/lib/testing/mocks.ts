@@ -1,5 +1,5 @@
-import { Column } from "./decorators/column";
-import { Table } from "./decorators/table";
+import { Column } from "../decorators/column";
+import { Table } from "../decorators/table";
 
 @Table
 export class MockClass {
