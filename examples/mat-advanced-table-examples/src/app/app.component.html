@@ -1,0 +1,49 @@
+<ng-template #confirmDelete>
+  <mat-dialog-content>
+    <h4 class="mat-title">
+      Do you really want to delete this user ?
+    </h4>
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button mat-button color="primary" mat-dialog-close>Yes</button>
+    <button mat-button color="warn" mat-dialog-close>cancel</button>
+  </div>
+</ng-template>
+<mat-tab-group>
+  <mat-tab label="Simple usage">
+    <mat-card>
+      <mat-card-title>
+        Simple usage
+      </mat-card-title>
+      <mat-card-content>
+        <mat-advanced-table [data]="data" [columns]="columns">
+        </mat-advanced-table>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Custom template">
+    <mat-card>
+      <mat-card-title>
+        Simple usage
+      </mat-card-title>
+      <mat-card-content>
+        <mat-advanced-table
+          [data]="data"
+          [columns]="columns"
+          [options]="{ actions: true }"
+        >
+          <ng-template [matATCellTemplate]="'actions'">
+            <button mat-icon-button (click)="deleteUser()">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </ng-template>
+          <ng-template [matATCellTemplate]="'isHighPrice'" let-isHighPrice>
+            <mat-icon [color]="isHighPrice ? 'warn' : 'primary'">{{
+              isHighPrice ? "thumb_down" : "thumb_up"
+            }}</mat-icon>
+          </ng-template>
+        </mat-advanced-table>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
