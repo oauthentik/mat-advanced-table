@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatAdvancedTableComponent } from "./mat-advanced-table.component";
 import { MatAdvancedTableModule } from "./mat-advanced-table.module";
 import { MatAdvancedTableService } from "./mat-advanced-table.service";
-import { MockClass, mockData, MockAdvancedClass } from "./mocks";
+import { MockClass, mockData, MockAdvancedClass } from "./testing/mocks";
 import {
   HostActionsComponent,
   HostLoadingComponent,
