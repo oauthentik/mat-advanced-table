@@ -16,7 +16,11 @@
         Simple usage
       </mat-card-title>
       <mat-card-content>
-        <mat-advanced-table [data]="data" [columns]="columns">
+        <mat-advanced-table
+          [data]="data"
+          [columns]="columns"
+          [options]="{ stickyHeader: true, height: 600 }"
+        >
         </mat-advanced-table>
       </mat-card-content>
     </mat-card>
