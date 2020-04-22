@@ -169,7 +169,7 @@ export class MatAdvancedTableComponent
 
   applyFilter(filterValue: string) {
     if ((filterValue || "") === "" || (filterValue || "") === undefined) {
-      this.dataSource.filteredData = this.data;
+      this.dataSource.filteredData = [...this._originalData];
       return;
     }
     this.dataSource.filterPredicate = (object, filter) => {
