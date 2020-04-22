@@ -19,13 +19,28 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { MatPaginator, MatTableDataSource, Sort } from "@angular/material";
 import { MatCellTemplateDirective } from "./directives/mat-cell-template.directive";
 import { cloneDeep, orderBy, sortBy } from "lodash";
-import {
-  NgxMatTableOptions,
-  NgxMatTableOptionsDefaults,
-} from "./models/ngx-mat-table-options.model";
+import { NgxMatTableOptions } from "./models/ngx-mat-table-options.model";
 import { FormControl } from "@angular/forms";
 import { tap } from "rxjs/operators";
 import { Observable } from "rxjs";
+
+const NgxMatTableOptionsDefaults: NgxMatTableOptions = {
+  minCellWidth: 80,
+  maxCellWidth: 200,
+  stickyHeader: false,
+  classList: [],
+  title: null,
+  height: null,
+  paging: true,
+  search: true,
+  selection: false,
+  placeholder: "N/A",
+  loadingText: "Please wait",
+  emptyDataText: "No Data available",
+  actions: false,
+  actionsLabel: "Actions",
+};
+
 @Component({
   selector: "mat-advanced-table",
   templateUrl: "./mat-advanced-table.component.html",

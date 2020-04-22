@@ -3,6 +3,7 @@
  */
 
 export * from "./lib/models/column.model";
+export * from "./lib/models/ngx-mat-table-options.model";
 export * from "./lib/decorators/column";
 export * from "./lib/decorators/table";
 export * from "./lib/mat-advanced-table.service";

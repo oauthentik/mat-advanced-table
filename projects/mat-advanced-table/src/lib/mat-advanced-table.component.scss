@@ -11,6 +11,16 @@
       background-color: transparent;
     }
   }
+  .ngx-mat-table-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+  }
+  .ngx-mat-table-sticky-container {
+    overflow: hidden;
+    overflow-y: auto;
+  }
   .ngx-mat-table-empty-data,
   .ngx-mat-table-loading-data {
     padding: 10px;
@@ -29,8 +39,5 @@
   }
   .ngx-mat-table-search {
     font-size: 12px;
-    ::ng-deep.mat-form-field-wrapper {
-      padding: 0 !important;
-    }
   }
 }
