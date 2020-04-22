@@ -167,9 +167,13 @@ export class MatAdvancedTableComponent
   }
   ngOnInit() {}
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue || "";
-    filterValue = filterValue.trim();
+  applyFilter(filterValue: any) {
+    filterValue =
+      filterValue === null || filterValue === undefined
+        ? ""
+        : isNaN(filterValue)
+        ? String(filterValue).trim()
+        : filterValue;
     this.dataSource.filterPredicate = (object, filter) => {
       return this.columns
         .map((column) => {
