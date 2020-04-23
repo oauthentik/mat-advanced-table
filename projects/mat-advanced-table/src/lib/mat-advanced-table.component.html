@@ -99,7 +99,7 @@
                 context: {
                   $implicit: column.propertyAccessor
                     ? column.propertyAccessor(element[column.key], element)
-                    : element
+                    : element[column.key]
                 }
               "
             ></ng-container>
