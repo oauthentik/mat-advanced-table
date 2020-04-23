@@ -10,6 +10,7 @@ import {
   MatExpansionModule,
   MatMenuModule,
   MatFormFieldModule,
+  MatInputModule,
 } from "@angular/material";
 
 @NgModule({
@@ -21,6 +22,7 @@ import {
     MatIconModule,
     MatDialogModule,
     MatExpansionModule,
+    MatInputModule,
     MatFormFieldModule,
     MatMenuModule,
     MatProgressBarModule,

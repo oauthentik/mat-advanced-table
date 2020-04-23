@@ -40,8 +40,16 @@ export class AppComponent {
       ? this.http
           .get<any[]>("assets/transactions-data.json")
           .pipe()
-          .pipe(finalize(() => (this.isLoading = false)))
-      : of([]).pipe(delay(5000));
+          .pipe(
+            finalize(() => {
+              this.isLoading = false;
+            })
+          )
+      : of([]).pipe(
+          finalize(() => {
+            this.isLoading = false;
+          })
+        );
   }
   ngOnInit(): void {
     this.countryFlags$ = this.http.get<any>("/assets/country-names.json").pipe(
@@ -59,6 +67,5 @@ export class AppComponent {
       share()
     );
     this.columns = this.matATService.getColumnsOfType(Transaction);
-    this.isLoading = true;
   }
 }
