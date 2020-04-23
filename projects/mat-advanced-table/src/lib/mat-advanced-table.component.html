@@ -96,7 +96,11 @@
             <ng-container
               *ngTemplateOutlet="
                 cellTemplate.template;
-                context: { $implicit: element }
+                context: {
+                  $implicit: column.propertyAccessor
+                    ? column.propertyAccessor(element[column.key], element)
+                    : element
+                }
               "
             ></ng-container>
           </ng-container>
