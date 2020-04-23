@@ -5,6 +5,8 @@ import { AppComponent } from "./app.component";
 import { MatAdvancedTableModule } from "mat-advanced-table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "examples/mat-advanced-table-examples/material.module";
+import { HttpClientModule } from "@angular/common/http";
+import { SafePipeModule } from "safe-pipe";
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,6 +14,8 @@ import { MaterialModule } from "examples/mat-advanced-table-examples/material.mo
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
+    SafePipeModule,
     MatAdvancedTableModule,
   ],
   providers: [],

@@ -1,8 +1,9 @@
 import { Component, ViewChild, TemplateRef } from "@angular/core";
 import { MatAdvancedTableService, ColumnModel } from "mat-advanced-table";
-import { Product } from "./data/data.model";
-import { DATA } from "./data/data.mocks";
 import { MatDialog } from "@angular/material";
+import { HttpClient } from "@angular/common/http";
+import { map, finalize, filter, tap, single, share } from "rxjs/operators";
+import { Transaction } from "./data.model";
 
 @Component({
   selector: "app-root",
@@ -10,21 +11,36 @@ import { MatDialog } from "@angular/material";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  data: Partial<Product>[];
+  data$;
+  gapiKey = `AIzaSyDcTFyM25BnezxRooccaNCKWwv4jT2_0QQ`;
   columns: ColumnModel[];
   options;
   constructor(
     private dialogService: MatDialog,
-    private matATService: MatAdvancedTableService
+    private matATService: MatAdvancedTableService,
+    private http: HttpClient
   ) {}
-
+  countryFlags$;
+  isLoading = false;
   @ViewChild("confirmDelete") dialog: TemplateRef<any>;
 
-  deleteUser() {
+  viewTransaction() {
     this.dialogService.open(this.dialog);
   }
   ngOnInit(): void {
-    this.columns = this.matATService.getColumnsOfType(Product);
-    this.data = DATA;
+    this.countryFlags$ = this.http.get<any>("/assets/country-names.json").pipe(
+      single((data) => !!data),
+      map((array) =>
+        array.map((entry) => ({
+          [entry.Name.toLowerCase()]: `assets/flags/${entry.Code}.svg`,
+        }))
+      ),
+      share()
+    );
+    this.columns = this.matATService.getColumnsOfType(Transaction);
+    this.isLoading = true;
+    this.data$ = this.http
+      .get<Transaction[]>("assets/transactions-data.json")
+      .pipe(finalize(() => (this.isLoading = false)));
   }
 }

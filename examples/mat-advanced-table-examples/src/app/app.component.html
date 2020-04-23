@@ -1,12 +1,12 @@
 <ng-template #confirmDelete>
   <mat-dialog-content>
     <h4 class="mat-title">
-      Do you really want to delete this user ?
+      Transaction ID
     </h4>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum, illum?
   </mat-dialog-content>
   <div mat-dialog-actions>
-    <button mat-button color="primary" mat-dialog-close>Yes</button>
-    <button mat-button color="warn" mat-dialog-close>cancel</button>
+    <button mat-button color="warn" mat-dialog-close>close</button>
   </div>
 </ng-template>
 <mat-tab-group>
@@ -17,7 +17,7 @@
       </mat-card-title>
       <mat-card-content>
         <mat-advanced-table
-          [data]="data"
+          [data]="data$ | async"
           [columns]="columns"
           [options]="{ stickyHeader: true, height: 600 }"
         >
@@ -32,19 +32,45 @@
       </mat-card-title>
       <mat-card-content>
         <mat-advanced-table
-          [data]="data"
+          [data]="data$ | async"
           [columns]="columns"
-          [options]="{ actions: true }"
+          [options]="{ actions: true, stickyHeader: true, height: 600 }"
         >
+          <ng-template #loading>
+            <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
+          </ng-template>
+          <ng-template #empty>
+            <mat-icon>announcement</mat-icon>
+            <span class="mat-caption">
+              There is not data yet
+            </span>
+          </ng-template>
+
           <ng-template [matATCellTemplate]="'actions'">
-            <button mat-icon-button (click)="deleteUser()">
-              <mat-icon color="warn">delete</mat-icon>
+            <button mat-icon-button (click)="viewTransaction()">
+              <mat-icon>pageview </mat-icon>
             </button>
           </ng-template>
-          <ng-template [matATCellTemplate]="'isHighPrice'" let-isHighPrice>
-            <mat-icon [color]="isHighPrice ? 'warn' : 'primary'">{{
-              isHighPrice ? "thumb_down" : "thumb_up"
-            }}</mat-icon>
+          <ng-template [matATCellTemplate]="'country'" let-country>
+            <img
+              *ngIf="countryFlags$ | async as flags"
+              [src]="flags[country]"
+              width="100px"
+              alt=""
+            />
+          </ng-template>
+          <ng-template [matATCellTemplate]="'location'" let-location>
+            <img
+              [src]="
+                'https://maps.googleapis.com/maps/api/staticmap?key=' +
+                  gapiKey +
+                  '&center=' +
+                  location.lat +
+                  ',' +
+                  location.long +
+                  '&size=200x300' | safe: 'resourceUrl'
+              "
+            />
           </ng-template>
         </mat-advanced-table>
       </mat-card-content>
