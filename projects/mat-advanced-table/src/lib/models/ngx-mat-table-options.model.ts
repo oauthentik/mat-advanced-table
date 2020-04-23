@@ -1,3 +1,9 @@
+export interface NgxMatTableStyleOptions {
+  selectedRowClass: string;
+  tableRowHeight: string;
+  tableHeaderClass: string;
+  denseDisplay: boolean;
+}
 export interface NgxMatTableOptions {
   minCellWidth: number;
   maxCellWidth: number;
@@ -7,6 +13,7 @@ export interface NgxMatTableOptions {
   stickyHeader: boolean;
   height: number | null;
   actionsLabel: string;
+  styles: NgxMatTableStyleOptions;
   paging: boolean;
   search: boolean;
   selection: boolean;

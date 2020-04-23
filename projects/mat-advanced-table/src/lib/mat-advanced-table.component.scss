@@ -35,7 +35,6 @@
     text-align: center;
   }
   .ngx-mat-table-header {
-    padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -45,5 +44,25 @@
   }
   .ngx-mat-table-search {
     font-size: 12px;
+  }
+  table.mat-table {
+    tr.selectable {
+      cursor: default;
+    }
+    .ngx-thead {
+      th {
+        font-weight: 800;
+        text-transform: capitalize;
+        background-color: #e8e8e8;
+        border-bottom: 1px solid black;
+      }
+    }
+    .ngx-mat-selected {
+      background-color: rgb(207, 215, 235);
+    }
+    td,
+    th {
+      padding: 0 10px;
+    }
   }
 }
