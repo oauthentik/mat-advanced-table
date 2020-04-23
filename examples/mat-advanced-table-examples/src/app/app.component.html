@@ -35,6 +35,25 @@
           </mat-card-content>
         </mat-card>
       </mat-tab>
+      <mat-tab label="Selection usage">
+        <mat-card>
+          <mat-card-title>
+            Selection usage
+            <button (click)="toggleData()" mat-raised-button>
+              Toggle Data
+            </button>
+          </mat-card-title>
+          <mat-card-content>
+            <mat-advanced-table
+              [loading]="isLoading"
+              [data]="data$ | async"
+              [columns]="columns"
+              [options]="{ stickyHeader: true, height: 600, selection: true }"
+            >
+            </mat-advanced-table>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
       <mat-tab label="Custom template">
         <mat-card>
           <mat-card-title>
