@@ -77,7 +77,7 @@ describe("MatAdvancedTableComponent", () => {
       });
       it("Should start with empty data text", () => {
         expect(
-          fixture.nativeElement.querySelector(".ngx-mat-table-empty")
+          fixture.nativeElement.querySelector(".ngx-mat-table-empty-data")
             .textContent
         ).toContain(component.options.emptyDataText);
       });
