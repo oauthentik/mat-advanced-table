@@ -21,12 +21,18 @@
     overflow: hidden;
     overflow-y: auto;
   }
+  .ngx-mat-table-empty-data {
+    mat-icon {
+      margin-right: 1em;
+    }
+  }
   .ngx-mat-table-empty-data,
   .ngx-mat-table-loading-data {
     padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
   .ngx-mat-table-header {
     padding: 1rem;

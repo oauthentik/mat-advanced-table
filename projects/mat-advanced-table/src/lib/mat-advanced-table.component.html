@@ -27,188 +27,188 @@
     </button>
   </mat-form-field>
 </div>
-<ng-container *ngIf="(loading | isDefined) && !loading; else loadingTmp">
-  <div
-    class="ngx-mat-table-container"
-    [ngClass]="{ 'ngx-mat-table-sticky-container': options.stickyHeader }"
-    [style.height.px]="options.height ? options.height : 'auto'"
+<div
+  class="ngx-mat-table-container"
+  [ngClass]="{ 'ngx-mat-table-sticky-container': options.stickyHeader }"
+  [style.height.px]="options.height ? options.height : 'auto'"
+>
+  <table
+    *ngIf="columns && columns.length"
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    [ngClass]="options.classList"
+    (matSortChange)="sortData($event)"
   >
-    <table
-      *ngIf="columns && columns.length"
-      mat-table
-      [dataSource]="dataSource"
-      matSort
-      [ngClass]="options.classList"
-      (matSortChange)="sortData($event)"
-    >
-      <ng-container *ngIf="options?.selection">
-        <ng-container [matColumnDef]="selectionColumnName">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            class="mat-{{ selectionColumnName }}-column"
-          >
-            <mat-checkbox
-              (change)="$event ? masterToggle() : null"
-              [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()"
-            >
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox
-              (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)"
-            >
-            </mat-checkbox>
-          </td>
-        </ng-container>
-      </ng-container>
-      <ng-container
-        [matColumnDef]="column.key"
-        *ngFor="let column of columns | where: notInHidden; let i = index"
-      >
-        <ng-container *ngIf="column.canSort; else noSort">
-          <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key">
-            {{ column.verboseName }}
-          </th>
-        </ng-container>
-        <ng-template #noSort>
-          <th mat-header-cell *matHeaderCellDef>
-            {{ column.verboseName }}
-          </th>
-        </ng-template>
-        <td
-          mat-cell
-          [style.maxWidth.px]="options?.maxCellWidth"
-          [style.minWidth.px]="options?.minCellWidth"
-          *matCellDef="let element"
+    <ng-container *ngIf="options?.selection">
+      <ng-container [matColumnDef]="selectionColumnName">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="mat-{{ selectionColumnName }}-column"
         >
-          <!-- Begin cell output -->
-          <ng-container
-            *ngIf="
-              templates | firstOrDefault: ['name', column.key] as cellTemplate;
-              else noTemplate
-            "
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
           >
-            <!-- With template outlet -->
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+    </ng-container>
+    <ng-container
+      [matColumnDef]="column.key"
+      *ngFor="let column of columns | where: notInHidden; let i = index"
+    >
+      <ng-container *ngIf="column.canSort; else noSort">
+        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key">
+          {{ column.verboseName }}
+        </th>
+      </ng-container>
+      <ng-template #noSort>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ column.verboseName }}
+        </th>
+      </ng-template>
+      <td
+        mat-cell
+        [style.maxWidth.px]="options?.maxCellWidth"
+        [style.minWidth.px]="options?.minCellWidth"
+        *matCellDef="let element"
+      >
+        <!-- Begin cell output -->
+        <ng-container
+          *ngIf="
+            templates | firstOrDefault: ['name', column.key] as cellTemplate;
+            else noTemplate
+          "
+        >
+          <!-- With template outlet -->
+          <ng-container
+            *ngTemplateOutlet="
+              cellTemplate.template;
+              context: {
+                $implicit: column.propertyAccessor
+                  ? column.propertyAccessor(element[column.key], element)
+                  : element[column.key]
+              }
+            "
+          ></ng-container>
+        </ng-container>
+        <ng-template #noTemplate>
+          <ng-template #WithPropAccessor>
+            <!-- With proprety accessor -->
             <ng-container
-              *ngTemplateOutlet="
-                cellTemplate.template;
-                context: {
-                  $implicit: column.propertyAccessor
-                    ? column.propertyAccessor(element[column.key], element)
-                    : element[column.key]
-                }
+              *ngIf="
+                column.propertyAccessor(element[column.key], element) as value;
+                else none
               "
-            ></ng-container>
-          </ng-container>
-          <ng-template #noTemplate>
-            <ng-template #WithPropAccessor>
-              <!-- With proprety accessor -->
-              <ng-container
-                *ngIf="
-                  column.propertyAccessor(
-                    element[column.key],
-                    element
-                  ) as value;
-                  else none
-                "
-              >
-                <ng-container
-                  *ngTemplateOutlet="
-                    propTypeOutput;
-                    context: {
-                      value: value,
-                      column: column
-                    }
-                  "
-                ></ng-container>
-              </ng-container>
-            </ng-template>
-
-            <ng-container
-              *ngIf="!column.propertyAccessor; else WithPropAccessor"
             >
               <ng-container
                 *ngTemplateOutlet="
                   propTypeOutput;
                   context: {
-                    value: element[column.key],
+                    value: value,
                     column: column
                   }
                 "
               ></ng-container>
             </ng-container>
           </ng-template>
-        </td>
-      </ng-container>
 
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns; sticky: options.stickyHeader"
-      ></tr>
-      <tr
-        mat-row
-        [ngClass]="rowNgClassFun ? rowNgClassFun(row) : { 'mat-row': true }"
-        *matRowDef="let row; columns: displayedColumns"
-      ></tr>
-    </table>
-  </div>
-
-  <ng-template #propTypeOutput let-column="column" let-value="value">
-    <ng-container [ngSwitch]="column.propertyType">
-      <span *ngSwitchCase="'String'" [title]="value">
-        {{ value || options.placeholder }}
-      </span>
-      <span *ngSwitchCase="'Number'">
-        <ng-container *ngIf="column.format">
-          {{ (value | number: column.format) || options.placeholder }}
-        </ng-container>
-        <ng-container *ngIf="!column.format">
-          {{ value || options.placeholder }}
-        </ng-container>
-      </span>
-      <span *ngSwitchCase="'Date'">
-        {{ (value | date: column.format) || options.placeholder }}
-      </span>
-      <span *ngSwitchDefault>
-        <ng-container *ngIf="column.propertyAccessor">
-          <span [innerHTML]="value"></span>
-        </ng-container>
-        <ng-container *ngIf="!column.propertyAccessor">
-          {{ value || options.placeholder }}
-        </ng-container>
-        <!-- Default type -->
-      </span>
+          <ng-container *ngIf="!column.propertyAccessor; else WithPropAccessor">
+            <ng-container
+              *ngTemplateOutlet="
+                propTypeOutput;
+                context: {
+                  value: element[column.key],
+                  column: column
+                }
+              "
+            ></ng-container>
+          </ng-container>
+        </ng-template>
+      </td>
     </ng-container>
-  </ng-template>
-  <ng-container *ngIf="!dataSource.data.length">
-    <div class="ngx-mat-table-empty">
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: options.stickyHeader"
+    ></tr>
+    <tr
+      mat-row
+      [ngClass]="rowNgClassFun ? rowNgClassFun(row) : { 'mat-row': true }"
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+  </table>
+  <ng-container *ngIf="!dataSource.data.length && !loading">
+    <div class="ngx-mat-table-empty-data">
       <ng-container *ngIf="noDataTemplate; else emptyDataTmp">
         <ng-container *ngTemplateOutlet="noDataTemplate"></ng-container>
       </ng-container>
     </div>
   </ng-container>
-</ng-container>
-<ng-template #emptyDataTmp>
-  <small>
-    <mat-icon color="warn" inline="true">warning</mat-icon>
-    {{ options.emptyDataText }}
-  </small>
-</ng-template>
 
-<ng-template #loadingTmp>
-  <ng-container *ngIf="loadingTemplate">
-    <ng-container *ngTemplateOutlet="loadingTemplate"></ng-container>
+  <ng-container *ngIf="(loading | isDefined) && loading">
+    <div class="ngx-mat-table-loading-data">
+      <ng-container *ngIf="loadingTemplate">
+        <ng-container *ngTemplateOutlet="loadingTemplate"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!loadingTemplate">
+        <mat-spinner
+          [mode]="'indeterminate'"
+          style="margin-right: 1em;"
+          [diameter]="20"
+        >
+        </mat-spinner>
+        <strong>
+          {{ options.loadingText }}
+        </strong>
+      </ng-container>
+    </div>
   </ng-container>
-  <mat-card class="ngx-mat-table-loading-data" *ngIf="!loadingTemplate">
-    <mat-spinner [mode]="'indeterminate'"> </mat-spinner>
-    <mat-card-footer>
-      {{ options.loadingText }}
-    </mat-card-footer>
-  </mat-card>
+</div>
+
+<ng-template #propTypeOutput let-column="column" let-value="value">
+  <ng-container [ngSwitch]="column.propertyType">
+    <span *ngSwitchCase="'String'" [title]="value">
+      {{ value || options.placeholder }}
+    </span>
+    <span *ngSwitchCase="'Number'">
+      <ng-container *ngIf="column.format">
+        {{ (value | number: column.format) || options.placeholder }}
+      </ng-container>
+      <ng-container *ngIf="!column.format">
+        {{ value || options.placeholder }}
+      </ng-container>
+    </span>
+    <span *ngSwitchCase="'Date'">
+      {{ (value | date: column.format) || options.placeholder }}
+    </span>
+    <span *ngSwitchDefault>
+      <ng-container *ngIf="column.propertyAccessor">
+        <span [innerHTML]="value"></span>
+      </ng-container>
+      <ng-container *ngIf="!column.propertyAccessor">
+        {{ value || options.placeholder }}
+      </ng-container>
+      <!-- Default type -->
+    </span>
+  </ng-container>
+</ng-template>
+<ng-template #emptyDataTmp>
+  <mat-icon color="warn">warning</mat-icon>
+  <span>
+    {{ options.emptyDataText }}
+  </span>
 </ng-template>
 
 <mat-paginator
