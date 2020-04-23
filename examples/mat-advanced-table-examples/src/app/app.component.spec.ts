@@ -4,6 +4,9 @@ import { MatAdvancedTableModule } from "mat-advanced-table";
 import { By } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "examples/mat-advanced-table-examples/material.module";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { SafePipeModule } from "safe-pipe";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -11,6 +14,9 @@ describe("AppComponent", () => {
       imports: [
         BrowserAnimationsModule,
         MaterialModule,
+        FormsModule,
+        HttpClientModule,
+        SafePipeModule,
         MatAdvancedTableModule,
       ],
       declarations: [AppComponent],
