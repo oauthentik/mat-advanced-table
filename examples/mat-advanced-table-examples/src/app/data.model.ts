@@ -7,7 +7,7 @@ export class Transaction {
   @Column({ verboseName: "Transaction date", canSort: true, sortBy: "desc" })
   transaction_date: Date;
   @Column({
-    format: ".3",
+    format: ".3 $",
     verboseName: "Price",
     canSort: true,
   })
@@ -35,10 +35,12 @@ export class Transaction {
   @Column({
     verboseName: "Account created",
     canSort: true,
+    format: "shortDate",
   })
   account_created: Date;
   @Column({
     verboseName: "Last Login",
+    format: "full",
   })
   last_login: Date;
   @Column({

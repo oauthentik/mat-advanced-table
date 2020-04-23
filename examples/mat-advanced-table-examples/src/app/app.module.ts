@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "examples/mat-advanced-table-examples/material.module";
 import { HttpClientModule } from "@angular/common/http";
 import { SafePipeModule } from "safe-pipe";
+import { NgPipesModule } from "angular-pipes";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +16,7 @@ import { SafePipeModule } from "safe-pipe";
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FormsModule,
     HttpClientModule,
     SafePipeModule,
     MatAdvancedTableModule,

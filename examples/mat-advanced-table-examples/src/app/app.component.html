@@ -1,79 +1,119 @@
-<ng-template #confirmDelete>
-  <mat-dialog-content>
-    <h4 class="mat-title">
-      Transaction ID
-    </h4>
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum, illum?
-  </mat-dialog-content>
-  <div mat-dialog-actions>
-    <button mat-button color="warn" mat-dialog-close>close</button>
-  </div>
-</ng-template>
-<mat-tab-group>
-  <mat-tab label="Simple usage">
-    <mat-card>
-      <mat-card-title>
-        Simple usage
-      </mat-card-title>
-      <mat-card-content>
-        <mat-advanced-table
-          [data]="data$ | async"
-          [columns]="columns"
-          [options]="{ stickyHeader: true, height: 600 }"
-        >
-        </mat-advanced-table>
-      </mat-card-content>
-    </mat-card>
-  </mat-tab>
-  <mat-tab label="Custom template">
-    <mat-card>
-      <mat-card-title>
-        Simple usage
-      </mat-card-title>
-      <mat-card-content>
-        <mat-advanced-table
-          [data]="data$ | async"
-          [columns]="columns"
-          [options]="{ actions: true, stickyHeader: true, height: 600 }"
-        >
-          <ng-template #loading>
-            <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
-          </ng-template>
-          <ng-template #empty>
-            <mat-icon>announcement</mat-icon>
-            <span class="mat-caption">
-              There is not data yet
-            </span>
-          </ng-template>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Examples use cases for the MatAdvancedTable</mat-card-title>
+    <mat-card-subtitle>Select each tab to display it's usage</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-template #confirmDelete>
+      <mat-dialog-content>
+        <h4 class="mat-title">
+          Transaction ID
+        </h4>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum, illum?
+      </mat-dialog-content>
+      <div mat-dialog-actions>
+        <button mat-button color="warn" mat-dialog-close>close</button>
+      </div>
+    </ng-template>
+    <mat-tab-group>
+      <mat-tab label="Simple usage">
+        <mat-card>
+          <mat-card-title>
+            Simple usage
+            <button (click)="toggleData()" mat-button>Toggle Data</button>
+          </mat-card-title>
+          <mat-card-content>
+            <mat-advanced-table
+              [data]="data$ | async"
+              [columns]="columns"
+              [options]="{ stickyHeader: true, height: 600 }"
+            >
+            </mat-advanced-table>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Custom template">
+        <mat-card>
+          <mat-card-title>
+            Usage with custom templates
+            <button (click)="toggleData()" mat-button>Toggle Data</button>
+          </mat-card-title>
+          <mat-card-content>
+            <mat-advanced-table
+              [data]="data$ | async"
+              [columns]="columns"
+              [options]="{ actions: true, stickyHeader: true, height: 600 }"
+            >
+              <ng-template #loading>
+                <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
+              </ng-template>
+              <ng-template #empty>
+                <mat-icon>announcement</mat-icon>
+                <span class="mat-caption">
+                  There is not data yet
+                </span>
+              </ng-template>
 
-          <ng-template [matATCellTemplate]="'actions'">
-            <button mat-icon-button (click)="viewTransaction()">
-              <mat-icon>pageview </mat-icon>
-            </button>
-          </ng-template>
-          <ng-template [matATCellTemplate]="'country'" let-country>
-            <img
-              *ngIf="countryFlags$ | async as flags"
-              [src]="flags[country]"
-              width="100px"
-              alt=""
-            />
-          </ng-template>
-          <ng-template [matATCellTemplate]="'location'" let-location>
-            <img
-              [src]="
-                'https://maps.googleapis.com/maps/api/staticmap?key=' +
-                  gapiKey +
-                  '&center=' +
-                  location.lat +
-                  ',' +
-                  location.long +
-                  '&size=200x300' | safe: 'resourceUrl'
-              "
-            />
-          </ng-template>
-        </mat-advanced-table>
-      </mat-card-content>
-    </mat-card>
-  </mat-tab>
-</mat-tab-group>
+              <ng-template [matATCellTemplate]="'actions'">
+                <button mat-icon-button (click)="viewTransaction()">
+                  <mat-icon>pageview </mat-icon>
+                </button>
+              </ng-template>
+              <ng-template [matATCellTemplate]="'country'" let-country>
+                <img
+                  *ngIf="countryFlags$ | async as flags"
+                  [src]="flags[country]"
+                  width="50px"
+                  alt=""
+                />
+              </ng-template>
+              <ng-template [matATCellTemplate]="'payment_type'" let-card>
+                <img
+                  [src]="'assets/cards/' + card + '.svg' | safe: 'resourceUrl'"
+                  width="50"
+                  alt=""
+                />
+              </ng-template>
+              <ng-template [matATCellTemplate]="'location'" let-location>
+                <mat-menu #appMenu="matMenu">
+                  <ng-template matMenuContent>
+                    <img
+                      width="100px"
+                      height="100px"
+                      [src]="
+                        'https://maps.googleapis.com/maps/api/staticmap?&center=' +
+                          location.lat +
+                          ',' +
+                          location.long +
+                          '&size=200x300' | safe: 'resourceUrl'
+                      "
+                    />
+                  </ng-template>
+                </mat-menu>
+
+                <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                  <mat-icon>map</mat-icon>
+                </button>
+              </ng-template>
+            </mat-advanced-table>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="editAPIKey()">
+      Google Maps API key (for testing purposes)
+    </button>
+  </mat-card-actions>
+</mat-card>
+<ng-template #apiDialog>
+  <mat-dialog-content>
+    <mat-form-field [appearance]="'outline'">
+      <input matInput placeholder="Your Google API" [(ngModel)]="apiKey" />
+    </mat-form-field>
+    <button mat-button color="warn" (click)="toggleData()" mat-dialog-close>
+      close
+    </button>
+  </mat-dialog-content>
+</ng-template>
