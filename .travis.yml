@@ -18,7 +18,8 @@ install:
   - npm rebuild node-sass
   - npm ci
 script:
-  - npm run ci
+  - npm run ci:lib
+  - npm run ci:app
   - cp README.md LICENSE dist/mat-advanced-table
 after_success:
   - codecov

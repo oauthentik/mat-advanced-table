@@ -33,7 +33,8 @@
     "lint:lib": "ng lint mat-advanced-table",
     "format": "npx prettier --write .",
     "e2e": "ng e2e mat-advanced-table-examples",
-    "ci": "npm run lint:lib && npm run test:ci && npm run build:lib",
+    "ci:lib": "npm run lint:lib && npm run test:ci && npm run build:lib",
+    "ci:app": "npm run lint:app && npm run test:app -- --watch=false --progress=false && npm run build:app",
     "semantic-release": "semantic-release"
   },
   "prettier": {
