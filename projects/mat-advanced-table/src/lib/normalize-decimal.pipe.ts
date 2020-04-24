@@ -8,6 +8,9 @@ export class NormalizeDecimalPipe implements PipeTransform {
     if (!value) {
       return 0;
     }
-    return typeof value === "string" ? value.replace(/,/g, "") : value;
+    let normalized =
+      typeof value === "string" ? value.replace(/,/g, "") : value;
+    normalized = isNaN(value) ? 0 : value;
+    return normalized;
   }
 }
