@@ -7,6 +7,7 @@ export interface NgxMatTableStyleOptions {
 export interface NgxMatTableOptions {
   minCellWidth: number;
   maxCellWidth: number;
+  searchDebouce: number;
   classList: string[];
   title: string;
   actions: boolean;

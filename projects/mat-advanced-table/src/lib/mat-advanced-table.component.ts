@@ -21,13 +21,14 @@ import { MatCellTemplateDirective } from "./directives/mat-cell-template.directi
 import { cloneDeep, orderBy, sortBy } from "lodash";
 import { NgxMatTableOptions } from "./models/ngx-mat-table-options.model";
 import { FormControl } from "@angular/forms";
-import { tap } from "rxjs/operators";
+import { tap, debounceTime } from "rxjs/operators";
 import { Observable } from "rxjs";
 
 const NgxMatTableOptionsDefaults: NgxMatTableOptions = {
   minCellWidth: 80,
   maxCellWidth: 200,
   stickyHeader: false,
+  searchDebouce: 300,
   classList: [],
   title: null,
   styles: {
@@ -143,6 +144,7 @@ export class MatAdvancedTableComponent
   constructor(public cdr: ChangeDetectorRef) {
     this.searchControl = new FormControl();
     this.filter$ = this.searchControl.valueChanges.pipe(
+      debounceTime(this.options.searchDebouce),
       tap((val) => {
         if (this.options.search) {
           this.applyFilter(val);
