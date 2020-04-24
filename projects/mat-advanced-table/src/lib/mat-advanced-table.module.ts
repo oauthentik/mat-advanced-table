@@ -23,9 +23,14 @@ import { NgPipesModule } from "angular-pipes";
 import { MatCellTemplateDirective } from "./directives/mat-cell-template.directive";
 import { MatAdvancedTableService } from "./mat-advanced-table.service";
 import { MatAdvancedTableComponent } from "./mat-advanced-table.component";
+import { NormalizeDecimalPipe } from "./normalize-decimal.pipe";
 
 @NgModule({
-  declarations: [MatAdvancedTableComponent, MatCellTemplateDirective],
+  declarations: [
+    MatAdvancedTableComponent,
+    MatCellTemplateDirective,
+    NormalizeDecimalPipe,
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
