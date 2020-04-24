@@ -43,7 +43,10 @@
     }
   }
   .ngx-mat-table-search {
-    font-size: 12px;
+    mat-icon {
+      vertical-align: middle;
+    }
+    font-size: inherit;
   }
   table.mat-table {
     tr.selectable {
