@@ -194,27 +194,37 @@ export class MatAdvancedTableComponent
     filterValue =
       filterValue === null || filterValue === undefined
         ? ""
-        : isNaN(filterValue)
-        ? String(filterValue).trim()
-        : filterValue;
+        : String(filterValue).replace(/,/g, "");
+    filterValue = isNaN(parseFloat(filterValue))
+      ? String(filterValue).trim()
+      : parseFloat(filterValue).toFixed(2);
     this.dataSource.filterPredicate = (object, filter) => {
       return this.columns
         .map((column) => {
           const columnType = column.propertyType;
-          const columnValue = column.propertyAccessor
+          let columnValue = column.propertyAccessor
             ? column.propertyAccessor(object[column.key], object)
             : object[column.key];
 
           switch (columnType) {
             case "Date":
-              // TODO: use ana adapter if so provided
+              const isDate = !isNaN(new Date(filter).getTime());
+              return (isDate
+                ? new Date(filter).toISOString()
+                : String(filter)
+              ).includes(
+                isDate ? new Date(columnValue).toISOString() : columnValue
+              );
+            case "Number":
+              columnValue = isNaN(parseFloat(columnValue))
+                ? String(columnValue).trim()
+                : parseFloat(columnValue).toFixed(2);
               return String(columnValue).includes(filter);
             case "String":
               return String(columnValue)
                 .trim()
                 .toLowerCase()
                 .includes(String(filter).toLowerCase().trim());
-            case "Number":
             case "Object":
               return columnValue === filter;
           }
