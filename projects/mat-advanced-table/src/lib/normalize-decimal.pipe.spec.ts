@@ -12,9 +12,9 @@ describe("NormalizeDecimalPipe", () => {
     expect(pipe.transform("1,210,322.21")).toBe("1210322.21");
     expect(pipe.transform(",322")).toBe("322");
   });
-  it("returns 0 when null or undefined", () => {
-    expect(pipe.transform(null)).toBe("0");
-    expect(pipe.transform(undefined)).toBe("0");
+  it("returns same input when null or undefined", () => {
+    expect(pipe.transform(null)).toBe(null);
+    expect(pipe.transform(undefined)).toBe(undefined);
   });
   it("returns 0 when non number is passed ", () => {
     const literal = "not a number";
