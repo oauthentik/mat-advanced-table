@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class NormalizeDecimalPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (!value) {
-      return "0";
+      return value;
     }
     let normalized = String(value).replace(/,/g, "");
     normalized = isNaN(parseFloat(normalized)) ? "0" : normalized;
