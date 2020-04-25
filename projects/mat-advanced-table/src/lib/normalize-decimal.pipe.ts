@@ -6,11 +6,10 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class NormalizeDecimalPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (!value) {
-      return 0;
+      return "0";
     }
-    let normalized =
-      typeof value === "string" ? value.replace(/,/g, "") : value;
-    normalized = isNaN(value) ? 0 : value;
+    let normalized = String(value).replace(/,/g, "");
+    normalized = isNaN(parseFloat(normalized)) ? "0" : normalized;
     return normalized;
   }
 }
