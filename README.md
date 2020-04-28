@@ -4,7 +4,7 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
 
 ## Features
 
-- Abstraction of html elements needed for creating the table
+- Abstraction of html elements|typescript boilerplate needed for creating a table
 - Easy and precise column mapping with class decorators
 - Advanced column filtering
 - Loading / Empty Data Templates
@@ -12,11 +12,15 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
 
 ## Installation
 
-1. Install using npm / yarn
+1. Install using npm
 
    ```shell
    npm i mat-advanced-table
    ```
+
+## Demo
+
+[View demo](https://oauthentik.github.io/mat-advanced-table)
 
 ## API
 
@@ -45,7 +49,8 @@ Angular Material Enhanced Table with less boilerplate [![semantic-release](https
 eg:
 
 ```typescript
- @Column({ propertyAccessor:(obj:UserModel, thisRef):string => obj.role.name }) rolename :string
+ @Column({ propertyAccessor: (obj:UserModel, thisRef) => obj.role.name })
+ rolename :string
 ```
 
 ### MatAdvancedTableComponent
@@ -73,6 +78,7 @@ eg:
 | maxCellWidth | The table cell's max-width style attribute in px | number | 200 |
 | classList | a list of classes to add to the table (eg: ['table-responsive','compact']... | string[] | [] |
 | title | The table header title | string | null |
+| styles: NgxMatTableStyleOptions | The table custom styles attributes | `{ denseDisplay: false, selectedRowClass: "ngx-mat-selected", tableHeaderClass: "ngx-thead", tableRowHeight: "1rem", },` |  
 | actions | Whether to show the actions column (Template is issued with the MatCellTemplate Directive) | boolean | false |
 | actionsLabel | The actions column header label | string | Actions |
 | paging | Whether to show the MatPaginator | boolean | true |
@@ -84,7 +90,7 @@ eg:
 
 ### MatCellTemplateDirective (Selector : _matATCellTemplate_)
 
-**`@Input() name:string` (Required)** : The column cell template name and it must be present in the @Table definition
+**`@Input('matATCellTemplate') name:string` (Required)** : The column cell template name and it must be present in the @Table definition
 
 ## Usage
 
@@ -170,7 +176,7 @@ after that you're ready to use it in the component template as
     [columns]="columns"
     [options]="{ actions: true }"
   >
-    <ng-template matATCellTemplate name="actions">
+    <ng-template [matATCellTemplate]="'actions'">
       <button mat-button (click)="deleteUser($event)">delete</button>
     </ng-template>
   </mat-advanced-table>`,
