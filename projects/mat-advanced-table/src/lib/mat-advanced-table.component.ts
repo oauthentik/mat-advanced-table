@@ -191,13 +191,7 @@ export class MatAdvancedTableComponent
   ngOnInit() {}
 
   applyFilter(filterValue: any) {
-    filterValue =
-      filterValue === null || filterValue === undefined
-        ? ""
-        : String(filterValue).replace(/,/g, "");
-    filterValue = isNaN(parseFloat(filterValue))
-      ? String(filterValue).trim()
-      : parseFloat(filterValue).toFixed(2);
+    filterValue = this.normalizeValue(filterValue);
     this.dataSource.filterPredicate = (object, filter) => {
       return this.columns
         .map((column) => {
@@ -233,6 +227,17 @@ export class MatAdvancedTableComponent
     };
     this.dataSource.filter = filterValue;
   }
+  private normalizeValue(value: any) {
+    value =
+      value === null || value === undefined
+        ? ""
+        : String(value).replace(/,/g, "");
+    value = isNaN(parseFloat(value))
+      ? String(value).trim()
+      : parseFloat(value).toFixed(2);
+    return value;
+  }
+
   sortData(sort: Sort) {
     const isAsc = sort.direction === "asc";
     const column = this.columns.find((c) => c.key === sort.active);
@@ -241,24 +246,27 @@ export class MatAdvancedTableComponent
       this.dataSource.data = this._originalData.slice();
       return;
     }
-    if (column.propertyAccessor) {
-      this.dataSource.data = orderBy(
-        this._originalData,
-        [
-          column.sortByAccessor
-            ? column.sortByAccessor
-            : (instance) =>
-                column.propertyAccessor(instance[column.key], instance),
-        ],
-        [direction]
-      );
-    } else {
-      this.dataSource.data = orderBy(
-        this._originalData,
-        [sort.active],
-        [direction]
-      );
-    }
+    const valueTransform = (colValue) => {
+      colValue = this.normalizeValue(colValue);
+      return column.propertyType === "Date"
+        ? new Date(colValue.toString())
+        : column.propertyType === "Number"
+        ? Number(colValue)
+        : colValue;
+    };
+    const searchPredicate = column.sortByAccessor
+      ? (instance) => valueTransform(column.sortByAccessor(instance[instance]))
+      : column.propertyAccessor
+      ? (instance) =>
+          valueTransform(
+            column.propertyAccessor(instance[column.key], instance)
+          )
+      : (instance) => valueTransform(instance[sort.active]);
+    this.dataSource.data = orderBy(
+      this._originalData,
+      [searchPredicate],
+      [direction]
+    );
   }
   notInHidden = (item) => !this.hiddenColumns.includes(item.key);
 
