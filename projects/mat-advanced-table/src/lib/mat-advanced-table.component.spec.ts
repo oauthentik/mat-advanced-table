@@ -1,5 +1,12 @@
 import { SimpleChange, Component } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  tick,
+  fakeAsync,
+  flush,
+} from "@angular/core/testing";
 import {
   MatPaginator,
   MatSortHeader,
@@ -172,15 +179,16 @@ describe("MatAdvancedTableComponent", () => {
           });
         });
       });
-      it("should filter data using search input", () => {
+      it("should filter data using search input", fakeAsync(() => {
         setupData();
         component.searchControl.setValue(21);
-        component.cdr.detectChanges();
+        tick(component.options.searchDebouce);
+        fixture.detectChanges();
         const rows: HTMLTableRowElement[] = Array.from(
           fixture.nativeElement.querySelectorAll("table tbody tr")
         );
         expect(rows.length).toEqual(1);
-      });
+      }));
     });
     describe("creating the component with custom options", () => {
       beforeEach(() => {
