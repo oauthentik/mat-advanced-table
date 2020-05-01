@@ -54,7 +54,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@angular/animations": "^9.1.4",
     "@angular/cdk": "^9.1.0",
     "@angular/common": "^9.1.4",
