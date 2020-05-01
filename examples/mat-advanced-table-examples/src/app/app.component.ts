@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, NgZone, TemplateRef, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { ColumnModel, MatAdvancedTableService } from "mat-advanced-table";
 import { of } from "rxjs";
 import { delay, finalize, map, share, single } from "rxjs/operators";

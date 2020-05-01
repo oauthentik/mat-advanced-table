@@ -7,11 +7,9 @@ import {
   fakeAsync,
   flush,
 } from "@angular/core/testing";
-import {
-  MatPaginator,
-  MatSortHeader,
-  MatButtonModule,
-} from "@angular/material";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSortHeader } from "@angular/material/sort";
+import { MatButtonModule } from "@angular/material/button";
 import { By } from "@angular/platform-browser";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatAdvancedTableComponent } from "./mat-advanced-table.component";
@@ -33,7 +31,7 @@ describe("MatAdvancedTableComponent", () => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, MatAdvancedTableModule],
       }).compileComponents();
-      service = TestBed.get(MatAdvancedTableService);
+      service = TestBed.inject(MatAdvancedTableService);
     }));
 
     beforeEach(() => {

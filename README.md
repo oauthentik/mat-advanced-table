@@ -63,9 +63,9 @@ eg:
 
 **`@Input() legend: TemplateRef<any>` (Optional)** : The legend template
 
-**`@Input() @ContentChild("noDataTemplate") noDataTemplate: TemplateRef<any>` (Optional)** : The empty data template
+**`@Input() noDataTemplate: TemplateRef<any>` (Optional)** : The empty data template
 
-**`@Input() @ContentChild("loadingTemplate") loadingTemplate: TemplateRef<any>` (Optional)** : The loading data template
+**`@Input() loadingTemplate: TemplateRef<any>` (Optional)** : The loading data template
 
 **`@Input() selection: SelectionModel` (Optional)** : The table initial selection
 

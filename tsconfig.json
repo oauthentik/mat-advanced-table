@@ -16,5 +16,8 @@
       "mat-advanced-table": ["dist/mat-advanced-table"],
       "mat-advanced-table/*": ["dist/mat-advanced-table/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

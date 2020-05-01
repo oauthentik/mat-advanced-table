@@ -7,7 +7,7 @@ import { TemplateRef } from "@angular/core";
 describe("Directive: MatCellTemplate", () => {
   it("should create an instance", () => {
     const directive = new MatCellTemplateDirective(
-      TestBed.get(TemplateRef, {} as TemplateRef<HTMLElement>)
+      TestBed.inject(TemplateRef, {} as TemplateRef<HTMLElement>)
     );
     expect(directive).toBeTruthy();
   });

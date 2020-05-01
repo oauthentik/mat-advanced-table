@@ -10,13 +10,13 @@ describe("MatAdvancedTableService", () => {
   );
 
   it("should be created", () => {
-    const service: MatAdvancedTableService = TestBed.get(
+    const service: MatAdvancedTableService = TestBed.inject(
       MatAdvancedTableService
     );
     expect(service).toBeTruthy();
   });
   it("should return a list of Columns when passed a registred table type", () => {
-    const service: MatAdvancedTableService = TestBed.get(
+    const service: MatAdvancedTableService = TestBed.inject(
       MatAdvancedTableService
     );
     spyOn(service, "getColumnsOfType").and.callThrough();

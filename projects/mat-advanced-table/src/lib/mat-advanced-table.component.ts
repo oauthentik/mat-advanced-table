@@ -16,13 +16,15 @@ import {
 } from "@angular/core";
 import { ColumnModel } from "./models/column.model";
 import { SelectionModel } from "@angular/cdk/collections";
-import { MatPaginator, MatTableDataSource, Sort } from "@angular/material";
 import { MatCellTemplateDirective } from "./directives/mat-cell-template.directive";
 import { cloneDeep, orderBy, sortBy } from "lodash";
 import { NgxMatTableOptions } from "./models/ngx-mat-table-options.model";
 import { FormControl } from "@angular/forms";
 import { tap, debounceTime } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { Sort } from "@angular/material/sort";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 
 const NgxMatTableOptionsDefaults: NgxMatTableOptions = {
   minCellWidth: 80,
@@ -112,12 +114,12 @@ export class MatAdvancedTableComponent
   /**
    * @description The empty data Template
    */
-  @Input() @ContentChild("noDataTemplate") noDataTemplate;
+  @Input() noDataTemplate;
 
   /**
    * @description The laoding text indicator
    */
-  @Input() @ContentChild("loadingTemplate") loadingTemplate;
+  @Input() loadingTemplate;
 
   /**
    * @description The initial selection model
