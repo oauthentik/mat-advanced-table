@@ -99,7 +99,7 @@ eg:
 import the `MatAdvancedTableModule` to the modules you are using it in
 
 ```typescript
-import { MatAdvancedTableModule } from "mat-table-advanced";
+import { MatAdvancedTableModule } from 'mat-table-advanced';
 
 @NgModule({
   declarations: [AppComponent],
@@ -118,14 +118,14 @@ export enum UserRoles {
 @Table
 export class UserModel {
   @Column({
-    verboseName: "User ID",
+    verboseName: 'User ID',
     canSort: true,
-    sortBy: "desc",
+    sortBy: 'desc',
   })
   id: number;
-  @Column({ verboseName: "User name", canSort: true })
+  @Column({ verboseName: 'User name', canSort: true })
   username: string;
-  @Column({ verboseName: "Role", canSort: true })
+  @Column({ verboseName: 'Role', canSort: true })
   role: UserRoles;
 }
 ```
@@ -170,7 +170,7 @@ after that you're ready to use it in the component template as
 
 ```typescript
 @Component({
-  selector: "app-component",
+  selector: 'app-component',
   template: `<mat-advanced-table
     [data]="data"
     [columns]="columns"
@@ -195,7 +195,7 @@ export class AppComponent implements OnInit {
     ];
   }
   deleteUser(user) {
-    console.log("User Deleted", user);
+    console.log('User Deleted', user);
   }
 }
 ```
@@ -204,7 +204,7 @@ export class AppComponent implements OnInit {
 
 ```typescript
 @Component({
-  selector: "app-component",
+  selector: 'app-component',
   template: `<mat-advanced-table
     [data]="data"
     [columns]="columns"

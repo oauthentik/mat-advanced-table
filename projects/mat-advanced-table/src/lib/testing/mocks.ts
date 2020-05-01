@@ -1,5 +1,5 @@
-import { Column } from "../decorators/column";
-import { Table } from "../decorators/table";
+import { Column } from '../decorators/column';
+import { Table } from '../decorators/table';
 
 @Table
 export class MockClass {
@@ -9,8 +9,8 @@ export class MockClass {
   bar: number;
 }
 export const mockData = [
-  { foo: "Test value", bar: 21 },
-  { foo: "Mock value", bar: 23 },
+  { foo: 'Test value', bar: 21 },
+  { foo: 'Mock value', bar: 23 },
 ];
 export class MockCategory {
   name: string;
@@ -21,7 +21,7 @@ export class MockAdvancedClass {
   @Column()
   code: string;
   @Column({
-    format: ".3",
+    format: '.3',
   })
   price: number;
   @Column()
@@ -33,21 +33,21 @@ export class MockAdvancedClass {
 }
 export const advancedMockData: MockAdvancedClass[] = [
   {
-    code: "123abc",
+    code: '123abc',
     price: 2121,
-    name: "Test product 1",
-    category: { name: "Test cat", description: "...." },
+    name: 'Test product 1',
+    category: { name: 'Test cat', description: '....' },
   },
   {
-    code: "21893adaslm",
+    code: '21893adaslm',
     price: 32898,
-    name: "Test product 2",
-    category: { name: "Test cat 2", description: "...." },
+    name: 'Test product 2',
+    category: { name: 'Test cat 2', description: '....' },
   },
   {
-    code: "342uldnasjn",
+    code: '342uldnasjn',
     price: 32,
-    name: "Test product 3 ",
-    category: { name: "Test cat 3 ", description: "...." },
+    name: 'Test product 3 ',
+    category: { name: 'Test cat 3 ', description: '....' },
   },
 ];

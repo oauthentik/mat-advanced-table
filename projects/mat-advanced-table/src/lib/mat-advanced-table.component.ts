@@ -13,18 +13,18 @@ import {
   AfterViewInit,
   OnChanges,
   ChangeDetectorRef,
-} from "@angular/core";
-import { ColumnModel } from "./models/column.model";
-import { SelectionModel } from "@angular/cdk/collections";
-import { MatCellTemplateDirective } from "./directives/mat-cell-template.directive";
-import { cloneDeep, orderBy, sortBy } from "lodash";
-import { NgxMatTableOptions } from "./models/ngx-mat-table-options.model";
-import { FormControl } from "@angular/forms";
-import { tap, debounceTime } from "rxjs/operators";
-import { Observable } from "rxjs";
-import { Sort } from "@angular/material/sort";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
+} from '@angular/core';
+import { ColumnModel } from './models/column.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCellTemplateDirective } from './directives/mat-cell-template.directive';
+import { cloneDeep, orderBy, sortBy } from 'lodash';
+import { NgxMatTableOptions } from './models/ngx-mat-table-options.model';
+import { FormControl } from '@angular/forms';
+import { tap, debounceTime } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 const NgxMatTableOptionsDefaults: NgxMatTableOptions = {
   minCellWidth: 80,
@@ -35,25 +35,25 @@ const NgxMatTableOptionsDefaults: NgxMatTableOptions = {
   title: null,
   styles: {
     denseDisplay: false,
-    selectedRowClass: "ngx-mat-selected",
-    tableHeaderClass: "ngx-thead",
-    tableRowHeight: "1rem",
+    selectedRowClass: 'ngx-mat-selected',
+    tableHeaderClass: 'ngx-thead',
+    tableRowHeight: '1rem',
   },
   height: null,
   paging: true,
   search: true,
   selection: false,
-  placeholder: "N/A",
-  loadingText: "Please wait",
-  emptyDataText: "No data is available",
+  placeholder: 'N/A',
+  loadingText: 'Please wait',
+  emptyDataText: 'No data is available',
   actions: false,
-  actionsLabel: "Actions",
+  actionsLabel: 'Actions',
 };
 
 @Component({
-  selector: "mat-advanced-table",
-  templateUrl: "./mat-advanced-table.component.html",
-  styleUrls: ["./mat-advanced-table.component.scss"],
+  selector: 'mat-advanced-table',
+  templateUrl: './mat-advanced-table.component.html',
+  styleUrls: ['./mat-advanced-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatAdvancedTableComponent
@@ -102,7 +102,7 @@ export class MatAdvancedTableComponent
    * @description Wether to use the white background or not
    *  if false the table will have no backround color of #fff
    */
-  @HostBinding("class.transparent-bg")
+  @HostBinding('class.transparent-bg')
   @Input()
   transparentBg: boolean;
 
@@ -136,11 +136,11 @@ export class MatAdvancedTableComponent
   private _originalData: any[] = [];
   private _options: NgxMatTableOptions;
   readonly actionsColumn = new ColumnModel({
-    key: "actions",
+    key: 'actions',
     order: 99,
-    verboseName: "Actions",
+    verboseName: 'Actions',
   });
-  readonly selectionColumnName = "selection";
+  readonly selectionColumnName = 'selection';
   searchControl: FormControl;
   filter$: Observable<string>;
   constructor(public cdr: ChangeDetectorRef) {
@@ -167,7 +167,7 @@ export class MatAdvancedTableComponent
     this.buildColumns();
   }
   ngOnChanges(changes) {
-    if (changes["data"]) {
+    if (changes['data']) {
       const source = this.data || [];
       this.dataSource = new MatTableDataSource(source);
       if (this.options.paging && !this.dataSource.paginator) {
@@ -203,7 +203,7 @@ export class MatAdvancedTableComponent
             : object[column.key];
 
           switch (columnType) {
-            case "Date":
+            case 'Date':
               const isDate = !isNaN(new Date(filter).getTime());
               return (isDate
                 ? new Date(filter).toISOString()
@@ -211,17 +211,17 @@ export class MatAdvancedTableComponent
               ).includes(
                 isDate ? new Date(columnValue).toISOString() : columnValue
               );
-            case "Number":
+            case 'Number':
               columnValue = isNaN(parseFloat(columnValue))
                 ? String(columnValue).trim()
                 : parseFloat(columnValue).toFixed(2);
               return String(columnValue).includes(filter);
-            case "String":
+            case 'String':
               return String(columnValue)
                 .trim()
                 .toLowerCase()
                 .includes(String(filter).toLowerCase().trim());
-            case "Object":
+            case 'Object':
               return columnValue === filter;
           }
         })
@@ -232,8 +232,8 @@ export class MatAdvancedTableComponent
   private normalizeValue(value: any) {
     value =
       value === null || value === undefined
-        ? ""
-        : String(value).replace(/,/g, "");
+        ? ''
+        : String(value).replace(/,/g, '');
     value = isNaN(parseFloat(value))
       ? String(value).trim()
       : parseFloat(value).toFixed(2);
@@ -241,18 +241,18 @@ export class MatAdvancedTableComponent
   }
 
   sortData(sort: Sort) {
-    const isAsc = sort.direction === "asc";
+    const isAsc = sort.direction === 'asc';
     const column = this.columns.find((c) => c.key === sort.active);
-    const direction = isAsc ? "asc" : "desc";
-    if (!sort.active || sort.direction === "") {
+    const direction = isAsc ? 'asc' : 'desc';
+    if (!sort.active || sort.direction === '') {
       this.dataSource.data = this._originalData.slice();
       return;
     }
     const valueTransform = (colValue) => {
       colValue = this.normalizeValue(colValue);
-      return column.propertyType === "Date"
+      return column.propertyType === 'Date'
         ? new Date(colValue.toString())
-        : column.propertyType === "Number"
+        : column.propertyType === 'Number'
         ? Number(colValue)
         : colValue;
     };
@@ -317,6 +317,6 @@ export class MatAdvancedTableComponent
   }
 
   private sortColumns() {
-    this.columns = sortBy(this.columns, ["order"]);
+    this.columns = sortBy(this.columns, ['order']);
   }
 }

@@ -1,50 +1,50 @@
-import { Column, Table } from "mat-advanced-table";
+import { Column, Table } from 'mat-advanced-table';
 
 @Table
 export class Transaction {
   @Column()
   product: string;
-  @Column({ verboseName: "Transaction date", canSort: true, sortBy: "desc" })
+  @Column({ verboseName: 'Transaction date', canSort: true, sortBy: 'desc' })
   transaction_date: Date;
   @Column({
-    format: ".3 $",
-    verboseName: "Price",
+    format: '.3 $',
+    verboseName: 'Price',
     canSort: true,
   })
   price: number;
   @Column({
-    verboseName: "Payment type",
+    verboseName: 'Payment type',
   })
   payment_type: string;
   @Column({
-    verboseName: "Name",
+    verboseName: 'Name',
   })
   name: string;
   @Column({
-    verboseName: "City",
+    verboseName: 'City',
   })
   city: string;
   @Column({
-    verboseName: "State",
+    verboseName: 'State',
   })
   state: string;
   @Column({
-    verboseName: "Country",
+    verboseName: 'Country',
   })
   country: string;
   @Column({
-    verboseName: "Account created",
+    verboseName: 'Account created',
     canSort: true,
-    format: "shortDate",
+    format: 'shortDate',
   })
   account_created: Date;
   @Column({
-    verboseName: "Last Login",
-    format: "full",
+    verboseName: 'Last Login',
+    format: 'full',
   })
   last_login: Date;
   @Column({
-    verboseName: "Location",
+    verboseName: 'Location',
     propertyAccessor: (location, instance) => ({
       lat: instance.latitude,
       long: instance.longitude,

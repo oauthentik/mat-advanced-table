@@ -1,4 +1,4 @@
-import { SimpleChange, DebugElement } from "@angular/core";
+import { SimpleChange, DebugElement } from '@angular/core';
 
 export const ButtonClickEvents = {
   left: { button: 0 },
@@ -6,7 +6,7 @@ export const ButtonClickEvents = {
 };
 export function click(
   el: DebugElement | HTMLElement,
-  eventObj: any = new MouseEvent("click", {})
+  eventObj: any = new MouseEvent('click', {})
 ): void {
   const htmlEl = el instanceof HTMLElement ? el : el.nativeElement;
   htmlEl.click();

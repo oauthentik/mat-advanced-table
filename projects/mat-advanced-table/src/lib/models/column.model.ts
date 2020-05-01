@@ -3,9 +3,9 @@ export class ColumnModel {
   verboseName: string;
   key: string;
   order: number;
-  propertyType: "String" | "Date" | "Number" | "Object";
+  propertyType: 'String' | 'Date' | 'Number' | 'Object';
   canSort: boolean;
-  sortBy: "asc" | "desc";
+  sortBy: 'asc' | 'desc';
   visible: boolean;
   format: string | false;
   sortByAccessor: (instance) => any;
@@ -16,13 +16,13 @@ export class ColumnModel {
     this.order = options.order || 0;
     this.verboseName = options.verboseName;
     this.sortBy = options.sortBy;
-    this.propertyType = options.propertyType || "String";
+    this.propertyType = options.propertyType || 'String';
     this.format =
       options.format === false
         ? null
-        : this.propertyType === "Number"
-        ? ".2"
-        : this.propertyType === "Date"
+        : this.propertyType === 'Number'
+        ? '.2'
+        : this.propertyType === 'Date'
         ? options.format
         : null;
     this.canSort = options.canSort || false;
