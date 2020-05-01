@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-$material-icons-font-path: '~material-icons/iconfont/';
-@import 'material-icons/iconfont/material-icons.scss';
-@import '~@angular/material/theming';
+$material-icons-font-path: "~material-icons/iconfont/";
+@import "material-icons/iconfont/material-icons.scss";
+@import "~@angular/material/theming";
 @include mat-core();
 $theme-primary: mat-palette($mat-blue);
 $theme-accent: mat-palette($mat-gray, A700, A400);
@@ -11,7 +11,7 @@ $theme-pallete: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 @include angular-material-theme($theme-pallete);
 html,
 body {
-  font-family: 'Open sans', Arial, Helvetica, sans-serif;
+  font-family: "Open sans", Arial, Helvetica, sans-serif;
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;

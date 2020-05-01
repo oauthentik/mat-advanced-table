@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MatAdvancedTableService } from '../mat-advanced-table.service';
-import { MockClass, mockData } from './mocks';
+import { Component, OnInit } from "@angular/core";
+import { MatAdvancedTableService } from "../mat-advanced-table.service";
+import { MockClass, mockData } from "./mocks";
 
 @Component({
-  selector: 'mat-host-component',
+  selector: "mat-host-component",
   template: `<mat-advanced-table [data]="data" [columns]="columns">
   </mat-advanced-table>`,
   styles: [``],
@@ -18,7 +18,7 @@ class HostBaseComponent implements OnInit {
   }
 }
 @Component({
-  selector: 'mat-host-component',
+  selector: "mat-host-component",
   template: `<mat-advanced-table
     [data]="data"
     [columns]="columns"
@@ -40,7 +40,7 @@ export class HostActionsComponent extends HostBaseComponent {
 }
 
 @Component({
-  selector: 'mat-host-component',
+  selector: "mat-host-component",
   template: `<mat-advanced-table
     [data]="data"
     [columns]="columns"
@@ -59,7 +59,7 @@ export class HostLoadingComponent extends HostBaseComponent {
   constructor(protected matAdvancedService: MatAdvancedTableService) {
     super(matAdvancedService);
   }
-  loadingText = 'Loading ...';
+  loadingText = "Loading ...";
   isLoading = false;
   toggleLoading(value) {
     this.isLoading = value;
@@ -70,7 +70,7 @@ export class HostLoadingComponent extends HostBaseComponent {
 }
 
 @Component({
-  selector: 'mat-host-component',
+  selector: "mat-host-component",
   template: `<mat-advanced-table
     [data]="data"
     [columns]="columns"
@@ -85,7 +85,7 @@ export class HostLoadingComponent extends HostBaseComponent {
   styles: [``],
 })
 export class HostEmptyComponent implements OnInit {
-  emptyDataPlaceholder = 'No data is available';
+  emptyDataPlaceholder = "No data is available";
   constructor(protected matAdvancedService: MatAdvancedTableService) {}
   columns;
   data;

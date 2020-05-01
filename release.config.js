@@ -1,20 +1,20 @@
 module.exports = {
-  pkgRoot: 'dist/mat-advanced-table',
-  tarballDir: 'dist/',
-  branch: 'master',
+  pkgRoot: "dist/mat-advanced-table",
+  tarballDir: "dist/",
+  branch: "master",
   verifyConditions: [
-    '@semantic-release/npm',
-    '@semantic-release/github',
-    '@qiwi/semantic-release-gh-pages-plugin',
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    "@qiwi/semantic-release-gh-pages-plugin",
   ],
   publish: [
-    '@semantic-release/npm',
-    '@semantic-release/github',
+    "@semantic-release/npm",
+    "@semantic-release/github",
     [
-      '@qiwi/semantic-release-gh-pages-plugin',
+      "@qiwi/semantic-release-gh-pages-plugin",
       {
-        msg: 'deploy gh-pages',
-        src: 'dist/mat-advanced-table-examples',
+        msg: "deploy gh-pages",
+        src: "dist/mat-advanced-table-examples",
       },
     ],
   ],

@@ -1,12 +1,12 @@
-import { Directive, Input, TemplateRef, Inject, Self } from '@angular/core';
+import { Directive, Input, TemplateRef, Inject, Self } from "@angular/core";
 
 @Directive({
-  selector: '[matATCellTemplate]',
+  selector: "[matATCellTemplate]",
 })
 export class MatCellTemplateDirective {
   constructor(@Self() @Inject(TemplateRef) private _tmp: TemplateRef<any>) {
     this.template = this._tmp;
   }
   @Input() template: TemplateRef<any>;
-  @Input('matATCellTemplate') name: string;
+  @Input("matATCellTemplate") name: string;
 }

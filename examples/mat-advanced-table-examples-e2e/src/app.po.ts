@@ -1,11 +1,11 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element } from "protractor";
 
 export class AppPage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get("/");
   }
 
   getTable() {
-    return element(by.css('app-root mat-advanced-table')).isPresent();
+    return element(by.css("app-root mat-advanced-table")).isPresent();
   }
 }
