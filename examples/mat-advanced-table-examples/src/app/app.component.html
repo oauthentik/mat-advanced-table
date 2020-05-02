@@ -39,12 +39,16 @@
         <mat-card>
           <mat-card-title>
             Selection usage
+            <small>
+              {{ table?.selection.selected.length }} item(s) selected
+            </small>
             <button (click)="toggleData()" mat-raised-button>
               Toggle Data
             </button>
           </mat-card-title>
           <mat-card-content>
             <mat-advanced-table
+              #table
               [loading]="isLoading"
               [data]="data$ | async"
               [columns]="columns"
@@ -59,7 +63,7 @@
           <mat-card-title>
             Usage with custom templates
             <button (click)="toggleData()" mat-raised-button>
-              Toggle Data {{ isLoading }}
+              Toggle Data
             </button>
           </mat-card-title>
           <mat-card-content>
