@@ -23,7 +23,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build:lib": "ng build mat-advanced-table",
-    "build:app": "ng build --prod mat-advanced-table-examples --base-href=https://oauthentik.github.io/mat-advanced-table/",
+    "build:app": "ng build --configuration production mat-advanced-table-examples --base-href=https://oauthentik.github.io/mat-advanced-table/",
     "test:ci": "ng test mat-advanced-table --watch=false --progress=false --browsers=ChromeHeadlessCI --code-coverage",
     "test": "npm run test:lib && npm run test:app ",
     "test:lib": "ng test mat-advanced-table --browsers=ChromeHeadlessCI ",
@@ -55,16 +55,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@angular/animations": "^11.2.14",
+    "@angular/animations": "^12.2.17",
     "@angular/cdk": "^9.1.0",
-    "@angular/common": "^11.2.14",
-    "@angular/compiler": "^11.2.14",
-    "@angular/core": "^11.2.14",
-    "@angular/forms": "^11.2.14",
+    "@angular/common": "^12.2.17",
+    "@angular/compiler": "^12.2.17",
+    "@angular/core": "^12.2.17",
+    "@angular/forms": "^12.2.17",
     "@angular/material": "^11.2.13",
-    "@angular/platform-browser": "^11.2.14",
-    "@angular/platform-browser-dynamic": "^11.2.14",
-    "@angular/router": "^11.2.14",
+    "@angular/platform-browser": "^12.2.17",
+    "@angular/platform-browser-dynamic": "^12.2.17",
+    "@angular/router": "^12.2.17",
     "angular-pipes": "^9.0.2",
     "core-js": "^3.1.3",
     "lodash": "^4.17.15",
@@ -72,13 +72,13 @@
     "rxjs": "^6.5.4",
     "safe-pipe": "^2.0.5-0",
     "tslib": "^2.5.0",
-    "zone.js": "~0.10.1"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.19",
-    "@angular/cli": "~11.2.19",
-    "@angular/compiler-cli": "~11.2.14",
-    "@angular/language-service": "~11.2.14",
+    "@angular-devkit/build-angular": "~12.2.18",
+    "@angular/cli": "~12.2.18",
+    "@angular/compiler-cli": "~12.2.17",
+    "@angular/language-service": "~12.2.17",
     "@qiwi/semantic-release-gh-pages-plugin": "^1.16.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
@@ -94,13 +94,13 @@
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "lint-staged": "^10.1.3",
-    "ng-packagr": "^11.2.4",
+    "ng-packagr": "^12.2.7",
     "prettier": "^2.0.4",
     "protractor": "~7.0.0",
     "semantic-release": "^17.0.4",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.8"
+    "typescript": "~4.3.5"
   },
   "config": {
     "commitizen": {
