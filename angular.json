@@ -23,16 +23,6 @@
             "tsConfig": "projects/mat-advanced-table/tsconfig.spec.json",
             "karmaConfig": "projects/mat-advanced-table/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/mat-advanced-table/tsconfig.lib.json",
-              "projects/mat-advanced-table/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -81,7 +71,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -129,16 +118,6 @@
               "examples/mat-advanced-table-examples/src/assets"
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "examples/mat-advanced-table-examples/tsconfig.app.json",
-              "examples/mat-advanced-table-examples/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -157,13 +136,6 @@
             "production": {
               "devServerTarget": "mat-advanced-table-examples:serve:production"
             }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "examples/mat-advanced-table-examples-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
           }
         }
       }
