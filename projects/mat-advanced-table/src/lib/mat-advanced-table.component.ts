@@ -19,7 +19,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { MatCellTemplateDirective } from "./directives/mat-cell-template.directive";
 import { cloneDeep, orderBy, sortBy } from "lodash";
 import { NgxMatTableOptions } from "./models/ngx-mat-table-options.model";
-import { FormControl } from "@angular/forms";
+import { UntypedFormControl } from "@angular/forms";
 import { tap, debounceTime } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Sort } from "@angular/material/sort";
@@ -141,10 +141,10 @@ export class MatAdvancedTableComponent
     verboseName: "Actions",
   });
   readonly selectionColumnName = "selection";
-  searchControl: FormControl;
+  searchControl: UntypedFormControl;
   filter$: Observable<string>;
   constructor(public cdr: ChangeDetectorRef) {
-    this.searchControl = new FormControl();
+    this.searchControl = new UntypedFormControl();
     this.filter$ = this.searchControl.valueChanges.pipe(
       debounceTime(this.options.searchDebouce),
       tap((val) => {
